@@ -14,11 +14,7 @@ class GivenWord extends Component {
       userSelect: "none"
     };
     return (
-      <h2
-        className="text-center display-2 mb-5"
-        style={style}
-        id="current-word"
-      >
+      <h2 className="text-center mb-5 font-weight-bold" style={style}>
         {currentWord}
       </h2>
     );
