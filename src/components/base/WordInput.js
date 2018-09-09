@@ -53,7 +53,7 @@ class WordInput extends Component {
     } = this.state;
     this.setState({ [event.target.name]: event.target.value });
 
-    if (event.target.value === currentWord) {
+    if (event.target.value.toLowerCase() === currentWord) {
       this.setState({ message: messageCorrect });
       this.setState({ [event.target.name]: "" });
 
