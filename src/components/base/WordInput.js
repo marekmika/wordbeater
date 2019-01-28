@@ -21,10 +21,14 @@ class WordInput extends Component {
       messageWrong: "Game over! For restart game type the word.",
       begginer: "Beginner",
       advanced: "Advanced",
-      insame: "Insame"
+      insame: "Insame",
+      editableLevelSelection: true,
+      beginnerSeconds: 5,
+      advancedSeconds: 3,
+      insameSeconds: 2
     };
 
-    this.seconds = 5;
+    this.seconds = this.state.beginnerSeconds;
     this.score = 0;
     this.currentScore = 0;
     this.highestScores = [];
@@ -35,6 +39,42 @@ class WordInput extends Component {
    */
   callBackLevel = levelFromLevelSelection => {
     this.setState({ selectedLevel: levelFromLevelSelection });
+    this.updateSeconds(levelFromLevelSelection);
+  };
+
+  /**
+   * Update seconds
+   * @param levelFromLevelSelection
+   */
+  updateSeconds = levelFromLevelSelection => {
+    const {
+      begginer,
+      advanced,
+      insame,
+      beginnerSeconds,
+      advancedSeconds,
+      insameSeconds
+    } = this.state;
+
+    switch (levelFromLevelSelection) {
+      case begginer:
+        this.setState({
+          currentLevelSeconds: beginnerSeconds
+        });   
+        break;
+      case advanced:
+        this.setState({
+          currentLevelSeconds: advancedSeconds
+        });  
+      break;
+      case insame:
+        this.setState({
+          currentLevelSeconds: insameSeconds
+        });    
+        break;
+      default:
+        break;
+    }
   };
 
   /**
@@ -49,10 +89,13 @@ class WordInput extends Component {
       messageCorrect,
       begginer,
       advanced,
-      insame
+      insame,
+      beginnerSeconds,
+      advancedSeconds,
+      insameSeconds
     } = this.state;
     this.setState({ [event.target.name]: event.target.value });
-
+    
     if (event.target.value.toLowerCase() === currentWord) {
       this.setState({ message: messageCorrect });
       this.setState({ [event.target.name]: "" });
@@ -60,21 +103,21 @@ class WordInput extends Component {
       switch (selectedLevel) {
         case begginer:
           this.setState({
-            currentLevelSeconds: 5,
+            currentLevelSeconds: beginnerSeconds,
             currentSelectedLevel: begginer
           });
           this.seconds = currentLevelSeconds;
           break;
         case advanced:
           this.setState({
-            currentLevelSeconds: 3,
+            currentLevelSeconds: advancedSeconds,
             currentSelectedLevel: advanced
           });
           this.seconds = currentLevelSeconds;
           break;
         case insame:
           this.setState({
-            currentLevelSeconds: 2,
+            currentLevelSeconds: insameSeconds,
             currentSelectedLevel: insame
           });
           this.seconds = currentLevelSeconds;
@@ -84,8 +127,7 @@ class WordInput extends Component {
       }
 
       this.seconds = currentLevelSeconds;
-      this.setState({ score: this.score++ });
-      this.setState({ currentWord: showWord() });
+      this.setState({ score: this.score++, currentWord: showWord()  });
     }
   };
 
@@ -97,7 +139,8 @@ class WordInput extends Component {
     const { messageWrong } = this.state;
     if (!isPlaying) {
       this.setState({
-        message: messageWrong
+        message: messageWrong,
+        editableLevelSelection: false
       });
       this.currentScore = this.score;
       if (this.currentScore !== 0 && this.currentScore !== -1) {
@@ -105,6 +148,10 @@ class WordInput extends Component {
       }
       this.score = -1;
       this.setState({ score: this.score });
+    } else {
+      this.setState({
+        editableLevelSelection: true
+      });
     }
   };
 
@@ -120,6 +167,7 @@ class WordInput extends Component {
    */
   countdown = () => {
     if (this.seconds > 0) {
+      this.checkStatus(true);
       this.setState({ seconds: this.seconds-- });
     } else if (this.seconds === 0) {
       this.checkStatus(false);
@@ -169,9 +217,10 @@ class WordInput extends Component {
       currentWord,
       wordInput,
       currentLevelSeconds,
-      currentSelectedLevel
+      currentSelectedLevel,
+      editableLevelSelection
     } = this.state;
-    const { seconds, score, handleChange, highestScores } = this;
+    const { seconds, score, handleChange, highestScores, callBackLevel } = this;
 
     return (
       <div className="col-lg-8 mx-auto">
@@ -179,7 +228,7 @@ class WordInput extends Component {
         <GivenWord currentWord={currentWord} />
         <GameInput wordInput={wordInput} handleChange={handleChange} />
         <GameInfo seconds={seconds} score={score} />
-        <LevelSelection callBackLevel={this.callBackLevel} />
+        <LevelSelection callBackLevel={callBackLevel} seconds={seconds} editableLevelSelection={editableLevelSelection}  />
         <HighScoreComponent
           highestScores={highestScores}
           selectedLevel={currentSelectedLevel}
