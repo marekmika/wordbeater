@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Consumer } from '../../context';
 
 class HighScoreComponent extends Component {
     /**
      * Creation of score´s table
      */
-    createTable = () => {
-        const { highestScores } = this.props;
+    createTable = (highestScores) => {
         let children = [];
         let numberHighestScores = 1;
 
@@ -27,16 +27,25 @@ class HighScoreComponent extends Component {
 
     render() {
         return (
-            <table className="table col-lg" style={{ marginTop: '20px' }}>
-                <thead>
-                    <tr>
-                        <th scope="col">High score</th>
-                        <th scope="col">Score</th>
-                        <th scope="col">Level</th>
-                    </tr>
-                </thead>
-                {this.createTable()}
-            </table>
+            <Consumer>
+                {value => {
+                    return (
+                        <table
+                            className="table col-lg"
+                            style={{ marginTop: '20px' }}
+                        >
+                            <thead>
+                                <tr>
+                                    <th scope="col">High score</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Level</th>
+                                </tr>
+                            </thead>
+                            {this.createTable(value.highestScores)}
+                        </table>
+                    );
+                }}
+            </Consumer>
         );
     }
 }

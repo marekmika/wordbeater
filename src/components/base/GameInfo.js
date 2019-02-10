@@ -1,24 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Consumer } from '../../context';
 
-const GameInfo = props => {
-    let { seconds, score } = props;
-
+const GameInfo = () => {
     return (
-        <div className="row gameInfo" style={{ marginTop: '20px' }}>
-            <div className="col-md-6">
-                <h3>Time Left: {seconds}</h3>
-            </div>
-            <div className="col-md-6">
-                <h3>Score: {score === -1 ? 0 : score}</h3>
-            </div>
-        </div>
+        <Consumer>
+            {value => {
+                const { seconds, score } = value;
+
+                return (
+                    <div className="row gameInfo" style={{ marginTop: '20px' }}>
+                        <div className="col-md-6">
+                            <h3>Time Left: {seconds}</h3>
+                        </div>
+                        <div className="col-md-6">
+                            <h3>Score: {score === -1 ? 0 : score}</h3>
+                        </div>
+                    </div>
+                );
+            }}
+        </Consumer>
     );
 };
 
 export default GameInfo;
-
-GameInfo.propTypes = {
-    seconds: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired
-};
