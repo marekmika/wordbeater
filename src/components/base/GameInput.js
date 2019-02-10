@@ -1,24 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Consumer } from '../../context';
 
-const GameInput = props => {
-    const { wordInput, handleChange } = props;
+class GameInput extends Component {
+    handleChange = e => {
+        const { dispatch, currentWord } = this.props.context;
+        this.setState({ [e.target.name]: e.target.value });
 
-    return (
-        <input
-            type="text"
-            className="form-control form-control-lg"
-            placeholder="Start typing..."
-            name="wordInput"
-            autoFocus
-            onChange={handleChange}
-            value={wordInput}
-        />
-    );
-};
+        if (currentWord === e.target.value.toLowerCase()) {
+            dispatch({ type: 'WORDMATCH' });
+            document.getElementById('wordInput').value = '';
+        }
+    };
 
-export default GameInput;
+    render() {
+        return (
+            <Consumer>
+                {value => {
+                    return (
+                        <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="Start typing..."
+                            id="wordInput"
+                            name="wordInput"
+                            autoFocus
+                            onChange={this.handleChange}
+                        />
+                    );
+                }}
+            </Consumer>
+        );
+    }
+}
 
-GameInput.propTypes = {
-    wordInput: PropTypes.string.isRequired
-};
+const MapElement = () => (
+    <Consumer>{context => <GameInput context={context} />}</Consumer>
+);
+
+export default MapElement;
