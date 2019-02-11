@@ -18,13 +18,13 @@ class App extends Component {
                 <div className="App">
                     <Header />
                     <div className="col-lg-8 mx-auto">
-                            <Overview />
-                            <GivenWord />
-                            <GameInput />
-                            <GameInfo />
-                            <LevelSelection />
-                            <HighScoreComponent />
-                        </div>
+                        <Overview />
+                        <GivenWord />
+                        <GameInput />
+                        <GameInfo />
+                        <LevelSelection />
+                        <HighScoreComponent />
+                    </div>
                 </div>
             </Provider>
         );

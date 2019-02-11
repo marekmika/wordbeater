@@ -16,7 +16,6 @@ const reducer = (state, action) => {
                     seconds: state.seconds - 1
                 };
             }
-
         case 'CHECKSTATUS':
             if (!action.isPlaying) {
                 let lowest = Number.POSITIVE_INFINITY;
@@ -103,38 +102,6 @@ const reducer = (state, action) => {
             return state;
     }
 };
-
-// isHighestScore = score => {
-//     if (
-//         (state.highestScores.length === 0 && state.score !== 0) ||
-//         this.lowestScore(state.highestScores) < state.score
-//     ) {
-//         highestScores.push({
-//             scoreArray: score,
-//             level: currentSelectedLevel
-//         });
-//         highestScores.sort((a, b) => {
-//             return b.scoreArray - a.scoreArray;
-//         });
-//     }
-// };
-
-// /**
-//  * Find lowest score in array of objects
-//  * @param scores
-//  */
-// lowestScore = scores => {
-//     let lowest = Number.POSITIVE_INFINITY;
-
-//     scores.map(score => {
-//         if (score.scoreArray < lowest) {
-//             lowest = score.scoreArray;
-//         }
-//         return lowest;
-//     });
-
-//     return lowest;
-// };
 
 export class Provider extends Component {
     state = {

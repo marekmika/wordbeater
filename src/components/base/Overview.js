@@ -13,34 +13,27 @@ class Overview extends Component {
         const { seconds, dispatch, isPlaying } = this.props.context;
 
         if (seconds > 0 && isPlaying) {
-            dispatch({ type: 'COUNTDOWN' }); 
+            dispatch({ type: 'COUNTDOWN' });
         } else if (seconds === 0) {
             dispatch({ type: 'CHECKSTATUS', isPlaying: false });
         }
     };
 
-    // @TODO: Delete <Consumer> and use props from MapElement
     render() {
-        return (
-            <Consumer>
-                {value => {
-                    const { message, currentLevelSeconds } = value;
+        const { message, currentLevelSeconds } = this.props.context;
 
-                    return (
-                        <div>
-                            <h2>{message}</h2>
-                            <p className="lead">
-                                Type The Given Word Within
-                                <span className="text-success">
-                                    {' '}
-                                    {currentLevelSeconds}{' '}
-                                </span>
-                                Seconds:
-                            </p>
-                        </div>
-                    );
-                }}
-            </Consumer>
+        return (
+            <div>
+                <h2>{message}</h2>
+                <p className="lead">
+                    Type The Given Word Within
+                    <span className="text-success">
+                        {' '}
+                        {currentLevelSeconds}{' '}
+                    </span>
+                    Seconds:
+                </p>
+            </div>
         );
     }
 }

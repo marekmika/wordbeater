@@ -21,46 +21,40 @@ class LevelSelection extends Component {
     };
 
     render() {
-        return (
-            <Consumer>
-                {value => {
-                    const { selectedValue } = this.state;
-                    const { editableLevelSelection } = value;
+        const { selectedValue } = this.state;
+        const { editableLevelSelection } = this.props.context;
 
-                    return (
-                        <div className="mx-auto" style={{ marginTop: '20px' }}>
-                            <span className="lead">Select level: </span>
-                            <input
-                                type="radio"
-                                name="Beginner"
-                                value="Beginner"
-                                checked={selectedValue === 'Beginner'}
-                                onChange={this.handleChange}
-                                disabled={editableLevelSelection}
-                            />
-                            Beginner
-                            <input
-                                type="radio"
-                                name="Advanced"
-                                value="Advanced"
-                                checked={selectedValue === 'Advanced'}
-                                onChange={this.handleChange}
-                                disabled={editableLevelSelection}
-                            />
-                            Advanced
-                            <input
-                                type="radio"
-                                name="Insame"
-                                value="Insame"
-                                checked={selectedValue === 'Insame'}
-                                onChange={this.handleChange}
-                                disabled={editableLevelSelection}
-                            />
-                            Insame
-                        </div>
-                    );
-                }}
-            </Consumer>
+        return (
+            <div className="mx-auto" style={{ marginTop: '20px' }}>
+                <span className="lead">Select level: </span>
+                <input
+                    type="radio"
+                    name="Beginner"
+                    value="Beginner"
+                    checked={selectedValue === 'Beginner'}
+                    onChange={this.handleChange}
+                    disabled={editableLevelSelection}
+                />
+                Beginner
+                <input
+                    type="radio"
+                    name="Advanced"
+                    value="Advanced"
+                    checked={selectedValue === 'Advanced'}
+                    onChange={this.handleChange}
+                    disabled={editableLevelSelection}
+                />
+                Advanced
+                <input
+                    type="radio"
+                    name="Insame"
+                    value="Insame"
+                    checked={selectedValue === 'Insame'}
+                    onChange={this.handleChange}
+                    disabled={editableLevelSelection}
+                />
+                Insame
+            </div>
         );
     }
 }

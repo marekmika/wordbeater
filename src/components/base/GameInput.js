@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Consumer } from '../../context';
 
 class GameInput extends Component {
+    /**
+     * Method for handle change in input and matching words
+     * 
+     * @param e
+     */
     handleChange = e => {
         const { dispatch, currentWord } = this.props.context;
         this.setState({ [e.target.name]: e.target.value });
@@ -14,21 +19,15 @@ class GameInput extends Component {
 
     render() {
         return (
-            <Consumer>
-                {value => {
-                    return (
-                        <input
-                            type="text"
-                            className="form-control form-control-lg"
-                            placeholder="Start typing..."
-                            id="wordInput"
-                            name="wordInput"
-                            autoFocus
-                            onChange={this.handleChange}
-                        />
-                    );
-                }}
-            </Consumer>
+            <input
+                type="text"
+                className="form-control form-control-lg"
+                placeholder="Start typing..."
+                id="wordInput"
+                name="wordInput"
+                autoFocus
+                onChange={this.handleChange}
+            />
         );
     }
 }

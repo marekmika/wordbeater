@@ -3,7 +3,7 @@ import { Consumer } from '../../context';
 
 class HighScoreComponent extends Component {
     /**
-     * Creation of score´s table
+     * Creation table of score´s
      */
     createTable = (highestScores) => {
         let children = [];
