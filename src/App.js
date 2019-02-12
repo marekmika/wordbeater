@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
 import Header from './components/layout/Header';
-import WordInput from './components/base/WordInput';
+import GameInfo from './components/base/GameInfo';
+import GameInput from './components/base/GameInput';
+import HighScoreComponent from './components/base/HighScoreComponent';
+import LevelSelection from './components/base/LevelSelection';
+import GivenWord from './components/base/GivenWord';
+import Overview from './components/base/Overview';
+
+import { Provider } from 'react-redux';
+import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <Header />
-                <WordInput />
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Header />
+                    <div className="col-lg-8 mx-auto">
+                        <Overview />
+                        <GivenWord />
+                        <GameInput />
+                        <GameInfo />
+                        <LevelSelection />
+                        <HighScoreComponent />
+                    </div>
+                </div>
+            </Provider>
         );
     }
 }

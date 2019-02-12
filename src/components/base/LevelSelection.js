@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeLevel } from '../../actions/gameActions';
 
 class LevelSelection extends Component {
     constructor() {
@@ -13,15 +15,13 @@ class LevelSelection extends Component {
      * @param  event
      */
     handleChange = event => {
-        const { callBackLevel } = this.props;
-
         this.setState({ selectedValue: event.target.name });
-        callBackLevel(event.target.name);
+        this.props.changeLevel(event.target.name);
     };
 
     render() {
         const { selectedValue } = this.state;
-        const { editableLevelSelection } = this.props;
+        const { editableLevelSelection } = this.props.gameData;
 
         return (
             <div className="mx-auto" style={{ marginTop: '20px' }}>
@@ -58,4 +58,11 @@ class LevelSelection extends Component {
     }
 }
 
-export default LevelSelection;
+const mapStateToprops = state => ({
+    gameData: state.game
+});
+
+export default connect(
+    mapStateToprops,
+    { changeLevel }
+)(LevelSelection);

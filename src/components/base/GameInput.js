@@ -1,24 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { wordMatch } from '../../actions/gameActions';
 
-const GameInput = props => {
-    const { wordInput, handleChange } = props;
+class GameInput extends Component {
+    handleChange = e => {
+        const { currentWord } = this.props.gameData;
 
-    return (
-        <input
-            type="text"
-            className="form-control form-control-lg"
-            placeholder="Start typing..."
-            name="wordInput"
-            autoFocus
-            onChange={handleChange}
-            value={wordInput}
-        />
-    );
-};
+        if (currentWord === e.target.value.toLowerCase()) {
+            this.props.wordMatch();
+            document.getElementById('wordInput').value = '';
+        }
+    };
 
-export default GameInput;
+    render() {
+        return (
+            <input
+                type="text"
+                className="form-control form-control-lg"
+                placeholder="Start typing..."
+                name="wordInput"
+                autoFocus
+                onChange={this.handleChange}
+                id="wordInput"
+            />
+        );
+    }
+}
 
-GameInput.propTypes = {
-    wordInput: PropTypes.string.isRequired
-};
+const mapStateToprops = state => ({
+    gameData: state.game
+});
+
+export default connect(
+    mapStateToprops,
+    { wordMatch }
+)(GameInput);

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class HighScoreComponent extends Component {
     /**
      * Creation of score´s table
      */
     createTable = () => {
-        const { highestScores } = this.props;
+        const { highestScores } = this.props.gameData;
         let children = [];
         let numberHighestScores = 1;
 
@@ -41,4 +42,8 @@ class HighScoreComponent extends Component {
     }
 }
 
-export default HighScoreComponent;
+const mapStateToprops = gameData => ({
+    gameData: gameData.game
+});
+
+export default connect(mapStateToprops)(HighScoreComponent);

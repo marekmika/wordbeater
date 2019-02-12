@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class GivenWord extends Component {
     render() {
-        const { currentWord } = this.props;
+        const { currentWord } = this.props.gameData;
 
         // To unselect the games word
         const style = {
@@ -21,4 +22,8 @@ class GivenWord extends Component {
     }
 }
 
-export default GivenWord;
+const mapStateToprops = state => ({
+    gameData: state.game
+});
+
+export default connect(mapStateToprops)(GivenWord);
