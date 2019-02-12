@@ -10,7 +10,7 @@ import { reduxFirestore, firestoreReducer } from 'redux-firestore';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCETi5hsBrdafvVd7P4eeBaC7bOnZ_2pnk',
-    authDomain: 'wordbeater-37aa9.firebaseapp.com', 
+    authDomain: 'wordbeater-37aa9.firebaseapp.com',
     databaseURL: 'https://wordbeater-37aa9.firebaseio.com',
     projectId: 'wordbeater-37aa9',
     storageBucket: 'wordbeater-37aa9.appspot.com',
@@ -56,15 +56,5 @@ const store = createStoreWithFirebase(
             window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
-
-// const store = createStore(
-//     rootReducer,
-//     initialState,
-//     compose(
-//         applyMiddleware(...middleWare),
-//         window.__REDUX_DEVTOOLS_EXTENSION__ &&
-//             window.__REDUX_DEVTOOLS_EXTENSION__()
-//     )
-// );
 
 export default store;

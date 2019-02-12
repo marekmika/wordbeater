@@ -75,12 +75,12 @@ const reducer = (state, action) => {
                         seconds: state.advancedSeconds,
                         isPlaying: false
                     };
-                case state.insame:
+                case state.insane:
                     return {
                         ...state,
-                        currentLevelSeconds: state.insameSeconds,
-                        currentSelectedLevel: state.insame,
-                        seconds: state.insameSeconds,
+                        currentLevelSeconds: state.insaneSeconds,
+                        currentSelectedLevel: state.insane,
+                        seconds: state.insaneSeconds,
                         isPlaying: false
                     };
                 default:
@@ -115,11 +115,11 @@ export class Provider extends Component {
         messageWrong: 'Game over! For restart game type the word.',
         begginer: 'Beginner',
         advanced: 'Advanced',
-        insame: 'Insame',
+        insane: 'Insane',
         editableLevelSelection: true,
         beginnerSeconds: 5,
         advancedSeconds: 3,
-        insameSeconds: 2,
+        insaneSeconds: 2,
         seconds: 5,
         score: 0,
         currentScore: 0,

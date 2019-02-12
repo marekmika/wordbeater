@@ -15,7 +15,7 @@ class HighScoreComponent extends Component {
                 <div className="row">
                     <ScoreTable users={users} scoreLevel={'BeginnerScore'} />
                     <ScoreTable users={users} scoreLevel={'AdvancedScore'} />
-                    <ScoreTable users={users} scoreLevel={'InsameScore'} />
+                    <ScoreTable users={users} scoreLevel={'InsaneScore'} />
                 </div>
             );
         } else {
@@ -25,7 +25,7 @@ class HighScoreComponent extends Component {
 }
 
 HighScoreComponent.propTypes = {
-  users: PropTypes.object.isRequired
+  users: PropTypes.array
 };
 
 export default compose(
