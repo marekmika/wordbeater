@@ -11,9 +11,7 @@ class ScoreTable extends Component {
         let countRecords = 20;
 
         users.sort((a, b) => {
-            if (a > b) return -1;
-            if (a < b) return 1;
-            return 0;
+            return b[scoreLevel] - a[scoreLevel];
         });
 
         if (users.length < countRecords) {
