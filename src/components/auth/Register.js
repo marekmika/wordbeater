@@ -26,7 +26,7 @@ class Register extends Component {
 
         const user = {
             nick,
-            email,
+            email: email.toLocaleLowerCase(),
             AdvancedScore: 0,
             BeginnerScore: 0,
             InsameScore: 0,
@@ -37,7 +37,7 @@ class Register extends Component {
             .createUser({ email, password })
             .then(() => {
                 firestore
-                    .add({ collection: 'users' }, user)
+                    .add({ collection: 'gamers' }, user)
                     .then(() => console.log('Done'));
             })
             .catch(err => alert('That User Already Exists', 'error'));
@@ -50,7 +50,7 @@ class Register extends Component {
     render() {
         return (
             <div className="row">
-                <div className="col-md-6 mx-auto">
+                <div className="col-md-6 mx-auto" style={{ top: "20px"}}>
                     <div className="card">
                         <div className="card-body">
                             <h1 className="text-center pb-4 pt-3">
@@ -121,5 +121,5 @@ Register.propTypes = {
 
 export default compose(
     firebaseConnect(),
-    firestoreConnect([{ collection: 'users' }])
+    firestoreConnect([{ collection: 'gamers' }])
 )(Register);
