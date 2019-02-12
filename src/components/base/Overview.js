@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 import LoadingScreen from '../layout/Spinner';
 
 class Overview extends Component {
-    constructor() {
-        super();
-    }
-
     /**
      * Start game
      */
@@ -90,7 +86,7 @@ class Overview extends Component {
         const { firestore } = this.props;
 
         firestore.update(
-            { collection: 'users', doc: this.props.user.id },
+            { collection: 'gamers', doc: this.props.user.id },
             {
                 BeginnerScore: currentScore
             }
@@ -105,7 +101,7 @@ class Overview extends Component {
         const { firestore } = this.props;
 
         firestore.update(
-            { collection: 'users', doc: this.props.user.id },
+            { collection: 'gamers', doc: this.props.user.id },
             {
                 AdvancedScore: currentScore
             }
@@ -120,7 +116,7 @@ class Overview extends Component {
         const { firestore } = this.props;
 
         firestore.update(
-            { collection: 'users', doc: this.props.user.id },
+            { collection: 'gamers', doc: this.props.user.id },
             {
                 InsameScore: currentScore
             }
@@ -161,10 +157,10 @@ Overview.propTypes = {
 
 export default compose(
     firestoreConnect(props => [
-        { collection: 'users', storeAs: 'user',  where: ['email', '==', props.auth.email] }
+        { collection: 'gamers', storeAs: 'gamer',  where: ['email', '==', props.auth.email] }
     ]),
     connect(({ firestore: { ordered } }, props) => ({
-        user: ordered.user && ordered.user[0]
+        user: ordered.gamer && ordered.gamer[0]
     })),
     connect(
         mapStateToprops,

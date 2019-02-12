@@ -32,7 +32,7 @@ class Login extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-6 mx-auto">
+                    <div className="col-md-6 mx-auto" style={{ top: "20px"}}>
                         <div className="card">
                             <div className="card-body">
                                 <h1 className="text-center pb-4 pt-3">
@@ -69,7 +69,7 @@ class Login extends Component {
                                         />
                                     </div>
                                     <hr />
-                                    Don't have a account? <Link to="/register">Sign up</Link>
+                                    Don't have an account? <Link to="/register">Sign up</Link>
                                 </form>
                             </div>
                         </div>

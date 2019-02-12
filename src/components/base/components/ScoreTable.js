@@ -11,9 +11,7 @@ class ScoreTable extends Component {
         let countRecords = 20;
 
         users.sort((a, b) => {
-            if (a > b) return -1;
-            if (a < b) return 1;
-            return 0;
+            return b[scoreLevel] - a[scoreLevel];
         });
 
         if (users.length < countRecords) {
@@ -21,7 +19,7 @@ class ScoreTable extends Component {
         }
 
         for (let index = 0; index < this.countRecords; index++) {
-            if (users[index][scoreLevel] !== 0 && users[index].nick ) {
+            if (users[index][scoreLevel] !== 0) {
                 children.push(
                     <tr key={index}>
                         <th scope="row">
