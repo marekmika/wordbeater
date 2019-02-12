@@ -1,18 +1,24 @@
 {
   "name": "wordbeater",
-  "version": "0.2.0",
+  "version": "0.1.5",
   "private": true,
   "homepage": "https://marekmika.github.io/wordbeater",
   "dependencies": {
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
+    "firebase": "^5.8.5",
     "gh-pages": "^1.2.0",
-    "npm": "^6.7.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "npm": "^6.9.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-radio-group": "^3.0.3",
+    "react-redux": "^5.1.1",
+    "react-redux-firebase": "^2.2.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "update": "^0.7.4"
+    "redux": "^4.0.1",
+    "redux-auth-wrapper": "^2.1.0",
+    "redux-firestore": "^0.7.0",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "deploy": "npm run build&&gh-pages -d build",

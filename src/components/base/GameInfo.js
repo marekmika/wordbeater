@@ -1,25 +1,28 @@
-import React from 'react';
-import { Consumer } from '../../context';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const GameInfo = () => {
-    return (
-        <Consumer>
-            {value => {
-                const { seconds, score } = value;
 
-                return (
-                    <div className="row gameInfo" style={{ marginTop: '20px' }}>
-                        <div className="col-md-6">
-                            <h3>Time Left: {seconds}</h3>
-                        </div>
-                        <div className="col-md-6">
-                            <h3>Score: {score === -1 ? 0 : score}</h3>
-                        </div>
-                    </div>
-                );
-            }}
-        </Consumer>
-    );
-};
+class GameInfo extends Component {
+    render() {
+        let { seconds, score } = this.props.gameData;
+        return (
+            <div className="row gameInfo" style={{ marginTop: '20px' }}>
+                <div className="col-md-6">
+                    <h3>Time Left: {seconds}</h3>
+                </div>
+                <div className="col-md-6">
+                    <h3>Score: {score === -1 ? 0 : score}</h3>
+                </div>
+            </div>
+        );
+    }
+}
 
-export default GameInfo;
+
+const mapStateToProps = state => ({
+    gameData: state.game
+});
+
+export default connect(
+    mapStateToProps
+)(GameInfo);
