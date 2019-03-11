@@ -21,7 +21,7 @@ class ScoreTable extends Component {
         }
 
         for (let index = 0; index < this.countRecords; index++) {
-            if (users[index][scoreLevel] !== 0 && && users[index].nick ) {
+            if (users[index][scoreLevel] !== 0 && users[index].nick ) {
                 children.push(
                     <tr key={index}>
                         <th scope="row">
