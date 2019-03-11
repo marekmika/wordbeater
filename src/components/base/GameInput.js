@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Consumer } from '../../context';
+import { connect } from 'react-redux';
+import { wordMatch } from '../../actions/gameActions';
 
 class GameInput extends Component {
-    /**
-     * Method for handle change in input and matching words
-     * 
-     * @param e
-     */
     handleChange = e => {
-        const { dispatch, currentWord } = this.props.context;
-        this.setState({ [e.target.name]: e.target.value });
+        const { currentWord } = this.props.gameData;
 
         if (currentWord === e.target.value.toLowerCase()) {
-            dispatch({ type: 'WORDMATCH' });
+            this.props.wordMatch();
             document.getElementById('wordInput').value = '';
         }
     };
@@ -23,17 +18,20 @@ class GameInput extends Component {
                 type="text"
                 className="form-control form-control-lg"
                 placeholder="Start typing..."
-                id="wordInput"
                 name="wordInput"
                 autoFocus
                 onChange={this.handleChange}
+                id="wordInput"
             />
         );
     }
 }
 
-const MapElement = () => (
-    <Consumer>{context => <GameInput context={context} />}</Consumer>
-);
+const mapStateToprops = state => ({
+    gameData: state.game
+});
 
-export default MapElement;
+export default connect(
+    mapStateToprops,
+    { wordMatch }
+)(GameInput);

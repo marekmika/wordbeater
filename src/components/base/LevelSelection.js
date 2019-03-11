@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Consumer } from '../../context';
+import { connect } from 'react-redux';
+import { changeLevel } from '../../actions/gameActions';
 
 class LevelSelection extends Component {
     constructor() {
@@ -14,15 +15,13 @@ class LevelSelection extends Component {
      * @param  event
      */
     handleChange = event => {
-        const { dispatch } = this.props.context;
-
         this.setState({ selectedValue: event.target.name });
-        dispatch({ type: 'CHANGELEVEL', currentLevel: event.target.name });
+        this.props.changeLevel(event.target.name);
     };
 
     render() {
         const { selectedValue } = this.state;
-        const { editableLevelSelection } = this.props.context;
+        const { editableLevelSelection } = this.props.gameData;
 
         return (
             <div className="mx-auto" style={{ marginTop: '20px' }}>
@@ -59,8 +58,11 @@ class LevelSelection extends Component {
     }
 }
 
-const MapElement = () => (
-    <Consumer>{context => <LevelSelection context={context} />}</Consumer>
-);
+const mapStateToprops = state => ({
+    gameData: state.game
+});
 
-export default MapElement;
+export default connect(
+    mapStateToprops,
+    { changeLevel }
+)(LevelSelection);
