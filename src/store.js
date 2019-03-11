@@ -10,7 +10,7 @@ import { reduxFirestore, firestoreReducer } from 'redux-firestore';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCETi5hsBrdafvVd7P4eeBaC7bOnZ_2pnk',
-    authDomain: 'wordbeater-37aa9.firebaseapp.com',
+    authDomain: 'wordbeater-37aa9.firebaseapp.com', 
     databaseURL: 'https://wordbeater-37aa9.firebaseio.com',
     projectId: 'wordbeater-37aa9',
     storageBucket: 'wordbeater-37aa9.appspot.com',
@@ -26,7 +26,7 @@ const rrfConfig = {
 // Init firabse
 firebase.initializeApp(firebaseConfig);
 //Init firestore
-const firestore = firebase.firestore();
+//const firestore = firebase.firestore();
 
 // Add reactReduxFirebase enhancer when making store creator
 const createStoreWithFirebase = compose(
@@ -51,6 +51,7 @@ const store = createStoreWithFirebase(
     compose(
         reactReduxFirebase(firebase),
         applyMiddleware(...middleWare),
+        // Delete this before deploy
         window.__REDUX_DEVTOOLS_EXTENSION__ &&
             window.__REDUX_DEVTOOLS_EXTENSION__()
     )

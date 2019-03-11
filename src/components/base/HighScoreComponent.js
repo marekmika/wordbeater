@@ -29,8 +29,8 @@ HighScoreComponent.propTypes = {
 };
 
 export default compose(
-    firestoreConnect([{ collection: 'users' }]),
+    firestoreConnect([{ collection: 'gamers' }]),
     connect(({ firestore: { ordered } }, props) => ({
-        users: ordered.users
+        users: ordered.gamers
     }))
 )(HighScoreComponent);
