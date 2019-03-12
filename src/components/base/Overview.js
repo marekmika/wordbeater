@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 import LoadingScreen from '../layout/Spinner';
 
 class Overview extends Component {
-    constructor() {
-        super();
-    }
-
     /**
      * Start game
      */

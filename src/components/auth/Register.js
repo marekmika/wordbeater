@@ -26,10 +26,10 @@ class Register extends Component {
 
         const user = {
             nick,
-            email: email.toLocaleLowerCase(),
+            email: email.toLowerCase(),
             AdvancedScore: 0,
             BeginnerScore: 0,
-            InsameScore: 0,
+            InsaneScore: 0,
         };
 
         // Register with firebase
@@ -40,7 +40,7 @@ class Register extends Component {
                     .add({ collection: 'gamers' }, user)
                     .then(() => console.log('Done'));
             })
-            .catch(err => alert('That User Already Exists', 'error'));
+            .catch(err => alert(err, 'error'));
     };
 
     onChange = e => {

@@ -39,7 +39,6 @@ class Header extends Component {
                             WordBeater
                         </a>
                         {isAuthenticated ? (
-                            <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="nav navbar-nav">
                                 <p className="navbar-text">Email: {auth.email}</p>
                                 <li><a
@@ -56,7 +55,6 @@ class Header extends Component {
                                     Logout
                                 </a></li>
                             </ul>
-                            </div>
                         ) : null}
                     </nav>
                 </div>
