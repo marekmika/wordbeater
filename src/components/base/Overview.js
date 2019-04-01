@@ -45,7 +45,7 @@ class Overview extends Component {
             currentSelectedLevel,
             begginer,
             advanced,
-            insame
+            insane
         } = this.props.gameData;
 
         switch (currentSelectedLevel) {
@@ -65,12 +65,12 @@ class Overview extends Component {
                     this.updateScoreAdvanced();
                 }
                 break;
-            case insame:
+            case insane:
                 if (
-                    this.props.user.InsameScore <
+                    this.props.user.InsaneScore <
                     this.props.gameData.currentScore
                 ) {
-                    this.updateScoreInsame();
+                    this.updateScoreInsane();
                 }
                 break;
             default:
@@ -109,16 +109,16 @@ class Overview extends Component {
     }
 
     /**
-     * Update of a score at Insame level
+     * Update of a score at Insane level
      */
-    updateScoreInsame() {
+    updateScoreInsane() {
         const { currentScore } = this.props.gameData;
         const { firestore } = this.props;
 
         firestore.update(
             { collection: 'gamers', doc: this.props.user.id },
             {
-                InsameScore: currentScore
+                InsaneScore: currentScore
             }
         );
     }
@@ -157,7 +157,11 @@ Overview.propTypes = {
 
 export default compose(
     firestoreConnect(props => [
-        { collection: 'gamers', storeAs: 'gamer',  where: ['email', '==', props.auth.email] }
+        {
+            collection: 'gamers',
+            storeAs: 'gamer',
+            where: ['email', '==', props.auth.email]
+        }
     ]),
     connect(({ firestore: { ordered } }, props) => ({
         user: ordered.gamer && ordered.gamer[0]

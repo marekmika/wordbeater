@@ -46,13 +46,13 @@ class LevelSelection extends Component {
                 Advanced
                 <input
                     type="radio"
-                    name="Insame"
-                    value="Insame"
-                    checked={selectedValue === 'Insame'}
+                    name="Insane"
+                    value="Insane"
+                    checked={selectedValue === 'Insane'}
                     onChange={this.handleChange}
                     disabled={editableLevelSelection}
                 />
-                Insame
+                Insane
             </div>
         );
     }
