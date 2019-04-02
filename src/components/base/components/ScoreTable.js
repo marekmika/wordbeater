@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ScoreTable extends Component {
+function ScoreTable(props) {
     /**
      * Creation of table
      */
-    createTable = () => {
-        const { users, scoreLevel } = this.props;
+    const createTable = ({ users, scoreLevel }) => {
         let children = [];
         let numberHighestScores = 1;
         let countRecords = 20;
@@ -15,10 +14,10 @@ class ScoreTable extends Component {
         });
 
         if (users.length < countRecords) {
-            this.countRecords = users.length;
+            countRecords = users.length;
         }
 
-        for (let index = 0; index < this.countRecords; index++) {
+        for (let index = 0; index < countRecords; index++) {
             if (users[index][scoreLevel] !== 0) {
                 children.push(
                     <tr key={index}>
@@ -35,22 +34,22 @@ class ScoreTable extends Component {
         return <tbody>{children}</tbody>;
     };
 
-    render() {
-        const { scoreLevel } = this.props;
-        return (
-            <table className="table offset-md-1" style={{ marginTop: '20px' }}>
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            {scoreLevel.substr(0, scoreLevel.length - 5)}
-                        </th>
-                        <th scope="col">Score</th>
-                    </tr>
-                </thead>
-                {this.createTable()}
-            </table>
-        );
-    }
+    return (
+        <table className="table offset-md-1" style={{ marginTop: '20px' }}>
+            <thead>
+                <tr>
+                    <th scope="col">
+                        {props.scoreLevel.substr(
+                            0,
+                            props.scoreLevel.length - 5
+                        )}
+                    </th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            {createTable(props)}
+        </table>
+    );
 }
 
 export default ScoreTable;
