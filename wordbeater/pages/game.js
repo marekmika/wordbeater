@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import GameInput from "../components/GameInput/GameInput";
+import Layout from "../components/Layout/Layout";
 
 const GamePage = () => {
-    return (
-        <div className="col-lg-8 mx-auto">
-            <span>Hello</span>
-        </div>
-    )
+  return (
+    <Layout>
+      <div className="col-lg-8 mx-auto">
+        <GameInput
+          wordInput={"Test"}
+          handleChange={() => console.log("Hello")}
+        />
+      </div>
+    </Layout>
+  );
 };
 
-export default GamePage
+export default GamePage;

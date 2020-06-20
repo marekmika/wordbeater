@@ -9,7 +9,6 @@ Home.getInitialProps = async ctx => {
     if (IS_SERVER){
         res.writeHead(302, {
             'Location': '/game'
-            //add other headers here...
         });
         res.end();
     }
