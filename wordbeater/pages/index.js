@@ -1,6 +1,8 @@
 import Router from 'next/router'
-// const IS_CLIENT = typeof window !== "undefined";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const IS_SERVER = typeof window === "undefined";
+
 
 const Home = () => null;
 
@@ -11,9 +13,11 @@ Home.getInitialProps = async ctx => {
             'Location': '/game'
         });
         res.end();
+
+        return;
     }
 
-    await Router.push('http://localhost:3000/game');
+    await Router.push('/game');
 
 
 };

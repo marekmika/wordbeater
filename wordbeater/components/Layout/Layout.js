@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import Header from "../Header/Header";
+import { node } from "prop-types";
 
 const Layout = ({ children }) => {
-  console.log({ children });
   return (
     <div>
       <Head>
@@ -11,8 +11,10 @@ const Layout = ({ children }) => {
         <meta name="description" content={"WordBeater"} />
         {/*<link rel="icon" href={getStaticAssetURL("/favicon.ico")} />*/}
       </Head>
-      <Header />
-      {children}
+      <div>
+        <Header />
+        {children}
+      </div>
     </div>
   );
 };
