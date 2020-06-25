@@ -9,12 +9,9 @@ const Layout = ({ children }) => {
       <Head>
         <title>WordBeater</title>
         <meta name="description" content={"WordBeater"} />
-        {/*<link rel="icon" href={getStaticAssetURL("/favicon.ico")} />*/}
       </Head>
-      <div>
-        <Header />
-        {children}
-      </div>
+      <Header />
+      {children}
     </div>
   );
 };

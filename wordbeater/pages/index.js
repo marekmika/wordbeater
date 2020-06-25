@@ -1,8 +1,6 @@
 import Router from 'next/router'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const IS_SERVER = typeof window === "undefined";
-
 
 const Home = () => null;
 
