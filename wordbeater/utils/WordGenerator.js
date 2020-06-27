@@ -1,4 +1,4 @@
-const words = [
+const WORDS_GAME = [
     'hat',
     'river',
     'lucky',
@@ -33,9 +33,9 @@ const words = [
 ];
 
 const pickWord = () => {
-    const randIndex = Math.floor(Math.random() * words.length); // Check definition etc. of methods floor and random
+    const randIndex = Math.floor(Math.random() * WORDS_GAME.length); // Check definition etc. of methods floor and random
     // Output random word
-    return words[randIndex];
+    return WORDS_GAME[randIndex];
 };
 
 export default pickWord ;
