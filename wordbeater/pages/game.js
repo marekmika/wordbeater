@@ -4,6 +4,7 @@ import styled from "styled-components";
 import store from "../redux/store";
 
 import GameInput from "../components/GameInput/GameInput";
+import GameWord from "../components/GameWord/GameWord";
 import Layout from "../components/Layout/Layout";
 import GameInfo from "../components/GameInfo/GameInfo";
 
@@ -13,10 +14,8 @@ const GamePage = () => {
       <Layout>
         <GamePageWrapper>
           <GameInfo />
-          <GameInput
-            wordInput={"Test"}
-            handleChange={() => console.log("Hello")}
-          />
+          <GameWord />
+          <GameInput />
         </GamePageWrapper>
       </Layout>
     </Provider>

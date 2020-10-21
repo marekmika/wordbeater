@@ -5,9 +5,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <NavWrapper>
-        <Link>
-          WordBeater
-        </Link>
+        <Link>WordBeater</Link>
       </NavWrapper>
     </HeaderWrapper>
   );
@@ -19,9 +17,7 @@ const HeaderWrapper = styled.div`
   height: 50px;
 `;
 
-const NavWrapper = styled.nav`
-
-`;
+const NavWrapper = styled.nav``;
 
 const Link = styled.a`
   text-decoration: none;

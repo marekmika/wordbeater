@@ -1,41 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { string, func } from "prop-types";
+import {
+  useCurrentWordSelector,
+  useGameSelector,
+} from "../../redux/reducers/game";
 
-import { setCurrentWord } from "../../redux/actions/gameActions";
-import pickWord from "../../utils/WordGenerator";
-import { useGameSelector } from "../../redux/reducers/game";
+const INPUT_VALUE_DEFAULT = "Start typing...";
 
-const GameInput = (props) => {
-  const { wordInput, handleChange } = props;
-
+const GameInput = () => {
   const dispatch = useDispatch();
-  const { currentWord } = useGameSelector();
+  const currenWord = useCurrentWordSelector();
 
-  useEffect(() => {
-    const currentWord = pickWord();
+  const [inputWord, setInputWord] = useState();
 
-    dispatch(setCurrentWord(currentWord));
-  }, []);
+  const handleChange = (value) => {
+    setInputWord(value);
+
+    const isValueSameCurrentWord = currenWord === value;
+
+    // TODO: Better naming of functions
+    if (!isValueSameCurrentWord) {
+      return;
+    }
+  };
 
   return (
     <>
-      {currentWord}
       <input
         type="text"
-        placeholder="Start typing..."
+        placeholder={INPUT_VALUE_DEFAULT}
         name="wordInput"
         autoFocus
-        onChange={handleChange}
-        value={wordInput}
+        onChange={(event) => handleChange(event.target.value)}
+        value={inputWord}
       />
     </>
   );
-};
-
-GameInput.propTypes = {
-  wordInput: string.isRequired,
-  handleChange: func.isRequired,
 };
 
 export default GameInput;

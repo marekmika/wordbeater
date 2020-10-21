@@ -16,4 +16,7 @@ const game = (state = initialGameState, action) => {
 
 export const useGameSelector = () => useSelector((store) => store);
 
+export const useCurrentWordSelector = () =>
+  useSelector((store) => store.currentWord);
+
 export default game;
