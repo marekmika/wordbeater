@@ -7,6 +7,7 @@ import { useScoreSelector, useTimeSelector } from '../../redux/reducers/game'
 import {
   decreaseTimeAction,
   setIsUserPlayingAction,
+  gameOverAction,
 } from '../../redux/actions/gameActions'
 
 const ONE_SECOND = 1000
@@ -19,16 +20,21 @@ const GameInfo = () => {
 
   const [intervalId, setIntervalId] = useState(null)
 
+  const discreaseTime = () => {
+    dispatch(decreaseTimeAction())
+  }
+
   useEffect(() => {
-    console.log({ isGameInProgress })
     if (!isGameInProgress) {
       clearInterval(intervalId)
       dispatch(setIsUserPlayingAction(false))
 
+      dispatch(gameOverAction())
+
       return
     }
 
-    setIntervalId(setInterval(() => dispatch(decreaseTimeAction()), ONE_SECOND))
+    setIntervalId(setInterval(discreaseTime, ONE_SECOND))
   }, [isGameInProgress])
 
   return (

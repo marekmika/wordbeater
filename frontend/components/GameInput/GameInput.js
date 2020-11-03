@@ -5,10 +5,13 @@ import styled from 'styled-components'
 
 import { useCurrentWordSelector } from '../../redux/reducers/game'
 import { useIsGameProgress } from '../../hooks/useIsGameInProgress'
+import { getRandomWord } from '../../utils/WordGenerator'
 
 import {
   increaseScoreAction,
+  setCurrentWordAction,
   setIsUserPlayingAction,
+  resetTimeAction,
 } from '../../redux/actions/gameActions'
 
 const INPUT_VALUE_DEFAULT = 'Start typing...'
@@ -37,11 +40,16 @@ const GameInput = () => {
     clearInput()
 
     if (!isGameInProgress) {
+      const newWord = getRandomWord()
+
       dispatch(setIsUserPlayingAction(true))
+      dispatch(setCurrentWordAction(newWord))
+
       return
     }
 
     dispatch(increaseScoreAction())
+    dispatch(resetTimeAction())
   }
 
   return (

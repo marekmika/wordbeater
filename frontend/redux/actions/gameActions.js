@@ -4,6 +4,7 @@ export const GAME_ACTIONS_TYPES = {
   RESET_TIME: 'RESET_TIME',
   DECREASE_TIME: 'DECREASE_TIME',
   SET_IS_USER_PLAYING: 'SET_IS_USER_PLAYING',
+  RESET_GAME: 'RESET_GAME',
 }
 
 export const increaseScoreAction = () => ({
@@ -20,9 +21,22 @@ export const resetTimeAction = (seconds) => ({
   data: seconds,
 })
 
+export const reseScoreAction = (seconds) => ({
+  type: GAME_ACTIONS_TYPES.RESET_TIME,
+  data: seconds,
+})
+
+export const resetGameAction = () => ({
+  type: GAME_ACTIONS_TYPES.RESET_GAME,
+})
+
 export const decreaseTimeAction = () => ({
   type: GAME_ACTIONS_TYPES.DECREASE_TIME,
 })
+
+export const gameOverAction = () => (dispatch) => {
+  dispatch(resetGameAction())
+}
 
 export const setCurrentWordAction = (word) => ({
   type: GAME_ACTIONS_TYPES.SET_CURRENT_WORD,

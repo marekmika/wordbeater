@@ -1,11 +1,9 @@
 import {
-  useScoreSelector,
   useIsUserPlayingSelector,
   useTimeSelector,
 } from '../redux/reducers/game'
 
 export const useIsGameProgress = () => {
-  const score = useScoreSelector()
   const isUserPlaying = useIsUserPlayingSelector()
   const time = useTimeSelector()
 

@@ -22,6 +22,14 @@ const game = produce((state = initialGameState, { type, data }) => {
       state.time -= 1
       return state
 
+    case GAME_ACTIONS_TYPES.RESET_TIME:
+      state.time = initialGameState.time
+      return state
+
+    case GAME_ACTIONS_TYPES.RESET_GAME:
+      state = initialGameState
+      return state
+
     default:
       return state
   }
