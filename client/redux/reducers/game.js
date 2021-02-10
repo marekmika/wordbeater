@@ -4,7 +4,7 @@ import produce from 'immer'
 import { GAME_ACTIONS_TYPES } from '../actions/gameActions'
 import initialGameState from '../initialGameState'
 
-const game = produce((state = initialGameState, { type, data }) => {
+const game = produce((state = initialGameState.game, { type, data }) => {
   switch (type) {
     case GAME_ACTIONS_TYPES.INCREASE_SCORE:
       state.score += 1
@@ -23,11 +23,11 @@ const game = produce((state = initialGameState, { type, data }) => {
       return state
 
     case GAME_ACTIONS_TYPES.RESET_TIME:
-      state.time = initialGameState.time
+      state.time = initialGameState.game.time
       return state
 
     case GAME_ACTIONS_TYPES.RESET_GAME:
-      state = initialGameState
+      state = initialGameState.game
       return state
 
     default:
@@ -35,16 +35,16 @@ const game = produce((state = initialGameState, { type, data }) => {
   }
 })
 
-export const useGameSelector = () => useSelector((store) => store)
+export const useGameSelector = () => useSelector((store) => store.game)
 
-export const useScoreSelector = () => useSelector((store) => store.score)
+export const useScoreSelector = () => useSelector((store) => store.game.score)
 
-export const useTimeSelector = () => useSelector((store) => store.time)
+export const useTimeSelector = () => useSelector((store) => store.game.time)
 
 export const useIsUserPlayingSelector = () =>
-  useSelector((store) => store.isUserPlaying)
+  useSelector((store) => store.game.isUserPlaying)
 
 export const useCurrentWordSelector = () =>
-  useSelector((store) => store.currentWord)
+  useSelector((store) => store.game.currentWord)
 
 export default game

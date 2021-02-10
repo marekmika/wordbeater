@@ -4,6 +4,13 @@ import { useDispatch } from 'react-redux'
 
 import { useIsGameProgress } from '../../hooks/useIsGameInProgress'
 import { useScoreSelector, useTimeSelector } from '../../redux/reducers/game'
+import { userSelector } from '../../redux/reducers/user'
+
+import {
+  fetchUserDataAction,
+  logoutUserAction,
+} from '../../redux/actions/userActions'
+
 import {
   decreaseTimeAction,
   setIsUserPlayingAction,
@@ -17,6 +24,7 @@ const GameInfo = () => {
   const score = useScoreSelector()
   const time = useTimeSelector()
   const isGameInProgress = useIsGameProgress()
+  const user = userSelector()
 
   const [intervalId, setIntervalId] = useState(null)
 
@@ -25,17 +33,29 @@ const GameInfo = () => {
   }
 
   useEffect(() => {
-    if (!isGameInProgress) {
-      clearInterval(intervalId)
-      dispatch(setIsUserPlayingAction(false))
-
-      dispatch(gameOverAction())
+    if (isGameInProgress) {
+      setIntervalId(setInterval(discreaseTime, ONE_SECOND))
 
       return
     }
-
-    setIntervalId(setInterval(discreaseTime, ONE_SECOND))
   }, [isGameInProgress])
+
+  useEffect(() => {
+    if (time !== 0) {
+      return
+    }
+
+    clearInterval(intervalId)
+    dispatch(setIsUserPlayingAction(false))
+
+    dispatch(gameOverAction())
+  }, [time])
+
+  useEffect(() => {
+    dispatch(fetchUserDataAction())
+  }, [])
+
+  const logout = async () => dispatch(logoutUserAction())
 
   return (
     <GameInfoWrapper>
@@ -45,6 +65,7 @@ const GameInfo = () => {
       <div>
         <h3>Score: {score}</h3>
       </div>
+      {user?.email && <button onClick={logout}>Logout</button>}
     </GameInfoWrapper>
   )
 }

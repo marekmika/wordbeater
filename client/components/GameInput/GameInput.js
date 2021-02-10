@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { TextField } from '@material-ui/core'
 import styled from 'styled-components'
 
 import { useCurrentWordSelector } from '../../redux/reducers/game'
 import { useIsGameProgress } from '../../hooks/useIsGameInProgress'
-import { getRandomWord } from '../../utils/WordGenerator'
 
 import {
   increaseScoreAction,
-  setCurrentWordAction,
   setIsUserPlayingAction,
   resetTimeAction,
 } from '../../redux/actions/gameActions'
@@ -28,7 +26,7 @@ const GameInput = () => {
     setInputWord('')
   }
 
-  const handleChange = (value) => {
+  const handleChange = async (value) => {
     setInputWord(value)
 
     const isValueSameCurrentWord = currenWord === value
@@ -40,10 +38,7 @@ const GameInput = () => {
     clearInput()
 
     if (!isGameInProgress) {
-      const newWord = getRandomWord()
-
       dispatch(setIsUserPlayingAction(true))
-      dispatch(setCurrentWordAction(newWord))
 
       return
     }

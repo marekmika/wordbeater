@@ -7,7 +7,7 @@ export const useIsGameProgress = () => {
   const isUserPlaying = useIsUserPlayingSelector()
   const time = useTimeSelector()
 
-  if (!isUserPlaying || time === 0) {
+  if (!isUserPlaying) {
     return false
   }
 

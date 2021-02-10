@@ -1,11 +1,20 @@
 const initialGameState = {
+  user: {
+    uid: null,
+    email: null,
+    bestScores: null,
+  },
+  game: {
+    score: 0,
+    time: 5,
+    currentWord: '',
+    isUserPlaying: false,
+  },
   score: 0,
   time: 5,
   currentWord: '',
   isUserPlaying: false,
 }
-
-const initialSettingsState = {}
 
 // wordInput: '',
 //     message: '',

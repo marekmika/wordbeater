@@ -9,3 +9,4 @@ services:
     volumes:
       - /app/node-modules
       - ./client:/app
+    restart: on-failure
