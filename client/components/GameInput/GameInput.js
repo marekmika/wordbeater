@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux'
 import { TextField } from '@material-ui/core'
 import styled from 'styled-components'
 
-import { useCurrentWordSelector } from '../../redux/reducers/game'
-import { useIsGameProgress } from '../../hooks/useIsGameInProgress'
+import { useCurrentWordSelector } from '@redux/reducers/game'
+import { useIsGameProgress } from '@hooks/useIsGameInProgress'
 
 import {
   increaseScoreAction,
   setIsUserPlayingAction,
   resetTimeAction,
-} from '../../redux/actions/gameActions'
+} from '@redux/actions/gameActions'
 
 const INPUT_VALUE_DEFAULT = 'Start typing...'
 

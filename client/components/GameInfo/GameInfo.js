@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
-import { useIsGameProgress } from '../../hooks/useIsGameInProgress'
-import { useScoreSelector, useTimeSelector } from '../../redux/reducers/game'
-import { userSelector } from '../../redux/reducers/user'
+import { useIsGameProgress } from '@hooks/useIsGameInProgress'
+import { useScoreSelector, useTimeSelector } from '@redux/reducers/game'
+import { userSelector } from '@redux/reducers/user'
 
 import {
   fetchUserDataAction,
   logoutUserAction,
-} from '../../redux/actions/userActions'
+} from '@redux/actions/userActions'
 
 import {
   decreaseTimeAction,
   setIsUserPlayingAction,
   gameOverAction,
-} from '../../redux/actions/gameActions'
+} from '@redux/actions/gameActions'
 
 const ONE_SECOND = 1000
 

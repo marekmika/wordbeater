@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import theme from '../../styles/theme'
-import Auth from '../Auth/Auth'
+import theme from '@styles/theme'
+import Auth from '@components/Auth/Auth'
 
 const Header = () => {
   return (

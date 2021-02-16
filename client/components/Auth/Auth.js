@@ -3,8 +3,8 @@ import { Button, Avatar } from '@material-ui/core'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
-import { signUserAction } from '../../redux/actions/userActions'
-import { userSelector } from '../../redux/reducers/user'
+import { signUserAction } from '@redux/actions/userActions'
+import { userSelector } from '@redux/reducers/user'
 
 const Auth = () => {
   const dispatch = useDispatch()

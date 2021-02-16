@@ -1,4 +1,4 @@
-import { fetchUserData, logoutUser } from '../../services/firebaseService'
+import { fetchUserData, logoutUser } from '@services/firebaseService'
 
 export const USER_ACTIONS_TYPES = {
   SET_USER: 'SET_USER',

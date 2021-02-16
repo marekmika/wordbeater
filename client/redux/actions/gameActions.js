@@ -1,4 +1,4 @@
-import { fetchUserData, updateUserScore } from '../../services/firebaseService'
+import { fetchUserData, updateUserScore } from '@services/firebaseService'
 import { setUserBestScoresAction } from './userActions'
 
 export const GAME_ACTIONS_TYPES = {

@@ -2,15 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { getRandomWord } from '../../utils/WordGenerator'
-import theme from '../../styles/theme'
+import { getRandomWord } from '@utils/WordGenerator'
+import theme from '@styles/theme'
 
-import { setCurrentWordAction } from '../../redux/actions/gameActions'
+import { setCurrentWordAction } from '@redux/actions/gameActions'
 
-import {
-  useCurrentWordSelector,
-  useScoreSelector,
-} from '../../redux/reducers/game'
+import { useCurrentWordSelector, useScoreSelector } from '@redux/reducers/game'
 
 const GameWord = () => {
   const dispatch = useDispatch()
