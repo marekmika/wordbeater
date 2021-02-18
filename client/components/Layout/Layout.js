@@ -1,20 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
 import Head from 'next/head'
-import Header from '@components/Header/Header'
 import { node } from 'prop-types'
+
+import theme from '@styles/theme'
+import Header from '@components/Header/Header'
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <LayoutContainer>
       <Head>
         <title>WordBeater</title>
         <meta name="description" content={'WordBeater'} />
       </Head>
       <Header />
       {children}
-    </div>
+    </LayoutContainer>
   )
 }
+
+const LayoutContainer = styled.div`
+  background-color: ${theme.colors.primaryBlack};
+`
 
 Layout.propTypes = {
   children: node.isRequired,

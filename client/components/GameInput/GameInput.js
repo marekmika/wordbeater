@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { TextField } from '@material-ui/core'
 import styled from 'styled-components'
@@ -17,7 +17,7 @@ const INPUT_VALUE_DEFAULT = 'Start typing...'
 const GameInput = () => {
   const dispatch = useDispatch()
 
-  const currenWord = useCurrentWordSelector()
+  const currentWord = useCurrentWordSelector()
   const isGameInProgress = useIsGameProgress()
 
   const [inputWord, setInputWord] = useState()
@@ -29,7 +29,7 @@ const GameInput = () => {
   const handleChange = async (value) => {
     setInputWord(value)
 
-    const isValueSameCurrentWord = currenWord === value
+    const isValueSameCurrentWord = currentWord === value
 
     if (!isValueSameCurrentWord) {
       return
@@ -56,11 +56,16 @@ const GameInput = () => {
         placeholder={INPUT_VALUE_DEFAULT}
         onChange={(event) => handleChange(event.target.value)}
         value={inputWord}
-        inputProps={{
+        style={{
+          backgroundColor: '#ffffff',
+          borderColor: 'black',
+        }}
+        InputProps={{
           min: 0,
           style: {
             textAlign: 'center',
-            // color: theme.colors.primaryBlue,
+            color: 'black',
+            border: 0,
           },
         }}
       />

@@ -33,12 +33,12 @@ const GameWordWrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: ${theme.colors.white};
-  background-color: ${theme.colors.primaryBlue};
   height: 3rem;
 `
 
 const WordTypography = styled.span`
-  font-size: 1.5rem;
+  font-weight: bold;
+  font-size: 2.5rem;
 `
 
 export default GameWord

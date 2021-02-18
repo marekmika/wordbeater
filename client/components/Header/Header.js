@@ -16,7 +16,6 @@ const Header = () => {
 
 const HeaderWrapper = styled.div`
   color: ${theme.colors.white};
-  background-color: ${theme.colors.primaryBlue};
   height: 50px;
 `
 

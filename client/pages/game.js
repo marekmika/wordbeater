@@ -9,12 +9,14 @@ import GameWord from '@components/GameWord/GameWord'
 import Layout from '@components/Layout/Layout'
 import GameInfo from '@components/GameInfo/GameInfo'
 
+import { GlobalStyle } from '@styles/global'
 import theme from '@styles/theme'
 
 const GamePage = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Layout>
           <GamePageWrapper>
             <GameInfo />
