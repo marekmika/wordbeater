@@ -19,9 +19,9 @@ const GamePage = () => {
         <GlobalStyle />
         <Layout>
           <GamePageWrapper>
-            <GameInfo />
             <GameWord />
             <GameInput />
+            <GameInfo />
           </GamePageWrapper>
         </Layout>
       </ThemeProvider>

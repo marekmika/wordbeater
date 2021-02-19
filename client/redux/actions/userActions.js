@@ -35,7 +35,7 @@ export const signUserAction = () => async (dispatch) => {
       loggedUser = await fetchUserData()
     }
 
-    if (loggedUser) {
+    if (!loggedUser) {
       throw new Error('No logged user!')
     }
 

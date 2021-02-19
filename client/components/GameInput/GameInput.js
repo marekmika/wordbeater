@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { TextField } from '@material-ui/core'
+import { TextField, makeStyles, createStyles } from '@material-ui/core'
 import styled from 'styled-components'
 
 import { useCurrentWordSelector } from '@redux/reducers/game'
 import { useIsGameProgress } from '@hooks/useIsGameInProgress'
+import theme from '@styles/theme'
 
 import {
   increaseScoreAction,
@@ -12,9 +13,8 @@ import {
   resetTimeAction,
 } from '@redux/actions/gameActions'
 
-const INPUT_VALUE_DEFAULT = 'Start typing...'
-
 const GameInput = () => {
+  const classes = useStyles()
   const dispatch = useDispatch()
 
   const currentWord = useCurrentWordSelector()
@@ -49,25 +49,19 @@ const GameInput = () => {
 
   return (
     <GameInputWrapper>
-      {/* TODO: Change color of input */}
       <TextField
-        autoFocus
         variant="outlined"
-        placeholder={INPUT_VALUE_DEFAULT}
         onChange={(event) => handleChange(event.target.value)}
         value={inputWord}
-        style={{
-          backgroundColor: '#ffffff',
-          borderColor: 'black',
+        classes={{
+          root: classes.root,
         }}
         InputProps={{
-          min: 0,
-          style: {
-            textAlign: 'center',
-            color: 'black',
-            border: 0,
+          classes: {
+            input: classes.resize,
           },
         }}
+        autoFocus
       />
     </GameInputWrapper>
   )
@@ -79,5 +73,28 @@ const GameInputWrapper = styled.div`
   justify-content: center;
   margin-top: 1rem;
 `
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      maxWidth: '20rem',
+      backgroundColor: `${theme.colors.white}`,
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          border: '0',
+        },
+        '&.Mui-focused fieldset': {
+          border: '0',
+        },
+      },
+    },
+    resize: {
+      color: `${theme.colors.black}`,
+      fontSize: '2rem',
+      lineHeight: '2.5rem',
+      textAlign: 'center',
+    },
+  })
+)
 
 export default GameInput

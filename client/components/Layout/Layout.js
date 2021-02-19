@@ -19,9 +19,7 @@ const Layout = ({ children }) => {
   )
 }
 
-const LayoutContainer = styled.div`
-  background-color: ${theme.colors.primaryBlack};
-`
+const LayoutContainer = styled.div``
 
 Layout.propTypes = {
   children: node.isRequired,

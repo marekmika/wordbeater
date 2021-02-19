@@ -12,8 +12,9 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     height: 100%;
     letter-spacing: 0.5px;
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     color: ${theme.colors.white};
-    background-color: ${theme.colors.primaryBlack};
+    background-color: ${theme.colors.black};
+    opacity: 87%;
   }
 `

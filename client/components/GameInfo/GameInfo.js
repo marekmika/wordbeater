@@ -4,12 +4,6 @@ import { useDispatch } from 'react-redux'
 
 import { useIsGameProgress } from '@hooks/useIsGameInProgress'
 import { useScoreSelector, useTimeSelector } from '@redux/reducers/game'
-import { userSelector } from '@redux/reducers/user'
-
-import {
-  fetchUserDataAction,
-  logoutUserAction,
-} from '@redux/actions/userActions'
 
 import {
   decreaseTimeAction,
@@ -24,17 +18,16 @@ const GameInfo = () => {
   const score = useScoreSelector()
   const time = useTimeSelector()
   const isGameInProgress = useIsGameProgress()
-  const user = userSelector()
 
   const [intervalId, setIntervalId] = useState(null)
 
-  const discreaseTime = () => {
+  const decreaseTime = () => {
     dispatch(decreaseTimeAction())
   }
 
   useEffect(() => {
     if (isGameInProgress) {
-      setIntervalId(setInterval(discreaseTime, ONE_SECOND))
+      setIntervalId(setInterval(decreaseTime, ONE_SECOND))
 
       return
     }
@@ -51,29 +44,39 @@ const GameInfo = () => {
     dispatch(gameOverAction())
   }, [time])
 
-  useEffect(() => {
-    dispatch(fetchUserDataAction())
-  }, [])
-
-  const logout = async () => dispatch(logoutUserAction())
-
   return (
     <GameInfoWrapper>
-      <div>
-        <h3>Time Left: {time}</h3>
-      </div>
-      <div>
-        <h3>Score: {score}</h3>
-      </div>
-      {user?.email && <button onClick={logout}>Logout</button>}
+      <GameInfoContainer>
+        <StyledTypography>Time</StyledTypography>
+        <StyledTypography>{time}</StyledTypography>
+      </GameInfoContainer>
+      <GameInfoContainer>
+        <StyledTypography>Score</StyledTypography>
+        <StyledTypography>{score}</StyledTypography>
+      </GameInfoContainer>
     </GameInfoWrapper>
   )
 }
 
 const GameInfoWrapper = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+`
+
+const GameInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  min-width: 6rem;
+
+  font-size: 2.5rem;
+  margin: 0 10rem;
+`
+
+const StyledTypography = styled.p`
+  margin: 1rem 0;
 `
 
 export default GameInfo

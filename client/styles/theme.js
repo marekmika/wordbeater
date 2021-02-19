@@ -1,7 +1,8 @@
 const theme = {
   colors: {
-    white: '#ffffff',
+    white: '#FFFFFF',
     black: '#000000',
+    grey: '#E5E5E5',
     primaryBlack: '#212121',
   },
   breakPoints: {
