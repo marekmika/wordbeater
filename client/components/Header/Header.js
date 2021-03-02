@@ -50,10 +50,4 @@ const Link = styled.a`
   line-height: 59px;
 `
 
-// const StyledAuth = styled(Auth)`
-//   position: relative;
-//   color: inherit;
-//   margin: auto 0;
-// `
-
 export default Header

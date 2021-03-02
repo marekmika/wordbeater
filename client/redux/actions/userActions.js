@@ -1,4 +1,8 @@
-import { fetchUserData, logoutUser } from '@services/firebaseService'
+import {
+  fetchUserData,
+  logoutUser,
+  signInWithPopup,
+} from '@services/firebaseService'
 
 export const USER_ACTIONS_TYPES = {
   SET_USER: 'SET_USER',
@@ -19,32 +23,12 @@ export const fetchUserDataAction = () => async (dispatch) => {
   } catch (error) {
     console.log({ error })
   }
-
-  return
 }
 
 export const signUserAction = () => async (dispatch) => {
-  let loggedUser = null
+  const loggedUser = await signInWithPopup()
 
-  try {
-    loggedUser = await fetchUserData()
-
-    if (!loggedUser?.uid) {
-      await initializedFirebase.auth().signInWithPopup(provider)
-
-      loggedUser = await fetchUserData()
-    }
-
-    if (!loggedUser) {
-      throw new Error('No logged user!')
-    }
-
-    dispatch(setUserAction(loggedUser))
-  } catch (error) {
-    console.log({ error })
-  }
-
-  return
+  dispatch(setUserAction(loggedUser))
 }
 
 export const logoutUserAction = () => async (dispatch) => {
@@ -59,8 +43,6 @@ export const logoutUserAction = () => async (dispatch) => {
   dispatch(resetUserAction())
 
   dispatch({ type: USER_ACTIONS_TYPES.END_LOGOUT })
-
-  return
 }
 
 export const setUserAction = (user) => ({

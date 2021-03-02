@@ -60,6 +60,26 @@ export const fetchUserData = async () => {
   })
 }
 
+export const signInWithPopup = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider()
+
+  let loggedUser = null
+
+  try {
+    loggedUser = await fetchUserData()
+
+    if (!loggedUser?.uid) {
+      await initializedFirebase.auth().signInWithPopup(provider)
+
+      return fetchUserData()
+    }
+
+    return loggedUser
+  } catch (error) {
+    console.log({ error })
+  }
+}
+
 export const updateUserScore = async (user, score) => {
   if (!user || !score) {
     return
