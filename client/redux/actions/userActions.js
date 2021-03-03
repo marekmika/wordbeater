@@ -12,7 +12,6 @@ export const USER_ACTIONS_TYPES = {
   SET_USER_BEST_SCORES: 'SET_USER_BEST_SCORES',
 }
 
-// TODO: Delete the duplicity of code for aut().onAuthStateChanged
 export const fetchUserDataAction = () => async (dispatch) => {
   let loggedUser = null
 

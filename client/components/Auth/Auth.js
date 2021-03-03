@@ -11,7 +11,9 @@ const Auth = () => {
   const dispatch = useDispatch()
   const user = userSelector()
 
-  const [isAvatarShown, setIsAvatarShown] = useState(user?.email)
+  const [isMouseOnAuthContainer, setIsMouseOnAuthContainer] = useState(
+    user?.email
+  )
 
   const authentication = async () => {
     try {
@@ -30,22 +32,20 @@ const Auth = () => {
   }
 
   return (
-    <AuthContainer>
+    <AuthContainer
+      onMouseEnter={() => setIsMouseOnAuthContainer(false)}
+      onMouseLeave={() => setIsMouseOnAuthContainer(true)}
+    >
       {user?.email ? (
-        <UserContainer
-          onMouseEnter={() => setIsAvatarShown(false)}
-          onMouseLeave={() => setIsAvatarShown(true)}
-        >
-          {isAvatarShown ? (
-            <Avatar
-              alt={user?.displayName}
-              src={user?.avatarUrl}
-              style={{ height: '65px', width: '55px' }}
-            />
-          ) : (
-            <StyledButton onClick={logout}>Logout</StyledButton>
-          )}
-        </UserContainer>
+        isMouseOnAuthContainer ? (
+          <Avatar
+            alt={user?.displayName}
+            src={user?.avatarUrl}
+            style={{ height: '4rem', width: '5rem' }}
+          />
+        ) : (
+          <StyledButton onClick={logout}>Logout</StyledButton>
+        )
       ) : (
         <StyledButton onClick={authentication}>Login</StyledButton>
       )}
@@ -54,11 +54,10 @@ const Auth = () => {
 }
 
 const AuthContainer = styled.div`
+  mi-height: 5rem;
   color: inherit;
   margin: auto 0;
 `
-
-const UserContainer = styled.div``
 
 const StyledButton = styled.button`
   color: inherit;

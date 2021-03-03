@@ -34,6 +34,7 @@ const GameWordWrapper = styled.div`
   justify-content: center;
   color: ${theme.colors.white};
   height: 3rem;
+  margin-bottom: 4rem;
 `
 
 const WordTypography = styled.span`

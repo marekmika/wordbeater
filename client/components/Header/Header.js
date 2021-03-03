@@ -16,13 +16,14 @@ const Header = () => {
 
 const HeaderWrapper = styled.div`
   color: ${theme.colors.white};
-  margin-top: 2rem;
-  margin-bottom: 12rem;
+  margin-top: 3rem;
+  margin-bottom: 10rem;
 `
 
 const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
+  min-height: 5rem;
   margin: auto 15rem;
 `
 

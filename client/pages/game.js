@@ -31,4 +31,6 @@ const GamePage = () => {
 
 const GamePageWrapper = styled.div``
 
+// Add SSR
+
 export default GamePage

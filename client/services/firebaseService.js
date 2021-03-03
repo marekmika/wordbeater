@@ -23,27 +23,23 @@ export function initializeFirebase() {
 
 const initializedFirebase = initializeFirebase()
 const db = initializedFirebase.firestore()
+const scoresRef = db.collection('gamers')
 
-// TODO: Seperate creation of user in database from fetching UserData
-// TODO: Does newUserDoc really need uid?
-export const fetchUserData = async () => {
-  return new Promise((resolve, reject) => {
+export const fetchUserData = async () =>
+  new Promise((resolve, reject) => {
     initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
         if (!user) {
           return resolve(null)
         }
 
-        const scoresRef = db.collection('gamers')
-
         const docRef = await scoresRef.doc(user.uid).get()
 
-        if (docRef.data()) {
+        if (docRef.exists) {
           return resolve(docRef.data())
         }
 
         const newUserDoc = {
-          uid: user.uid,
           email: user.email,
           createdAt: Math.floor(Date.now() / 1000),
           bestScores: {
@@ -58,7 +54,6 @@ export const fetchUserData = async () => {
       (error) => reject(error)
     )
   })
-}
 
 export const signInWithPopup = async () => {
   const provider = new firebase.auth.GoogleAuthProvider()
@@ -90,8 +85,6 @@ export const updateUserScore = async (user, score) => {
   }
 
   try {
-    const scoresRef = db.collection('gamers')
-
     return scoresRef.doc(user.uid).update({ bestScores: { beginner: score } })
   } catch (error) {
     console.log({ error })
