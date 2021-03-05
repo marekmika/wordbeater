@@ -5,11 +5,18 @@ import thunk from 'redux-thunk'
 import game from './reducers/game'
 import user from './reducers/user'
 
-const reducers = combineReducers({
-  game,
-  user,
-})
+const getStore = () => {
+  const reducers = combineReducers({
+    game,
+    user,
+  })
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
+  const store = createStore(
+    reducers,
+    composeWithDevTools(applyMiddleware(thunk))
+  )
 
-export default store
+  return store
+}
+
+export default getStore

@@ -1,36 +1,35 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
 import styled from 'styled-components'
-import store from '@redux/store'
 
 import GameInput from '@components/GameInput/GameInput'
 import GameWord from '@components/GameWord/GameWord'
-import Layout from '@components/Layout/Layout'
 import GameInfo from '@components/GameInfo/GameInfo'
 
-import { GlobalStyle } from '@styles/global'
-import theme from '@styles/theme'
+import { fetchUserData } from '@services/firebaseService'
+import Layout from '@components/Layout/Layout'
 
 const GamePage = () => {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout>
-          <GamePageWrapper>
-            <GameWord />
-            <GameInput />
-            <GameInfo />
-          </GamePageWrapper>
-        </Layout>
-      </ThemeProvider>
-    </Provider>
+    <Layout>
+      <GamePageWrapper>
+        <GameWord />
+        <GameInput />
+        <GameInfo />
+      </GamePageWrapper>
+    </Layout>
   )
 }
 
 const GamePageWrapper = styled.div``
 
 // Add SSR
+GamePage.getInitialProps = async (ctx) => {
+  const state = ctx.store.getState()
+  const userData = await fetchUserData()
+
+  console.log({ userData })
+
+  return { userData }
+}
 
 export default GamePage
