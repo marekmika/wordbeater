@@ -12,7 +12,6 @@ import theme from '@styles/theme'
 
 const store = createStore()
 
-// TODO: Add base path and try include store to pageProps
 class App extends NextApp {
   static async getInitialProps({ Component, ctx }) {
     const appProps = await Component.getInitialProps?.(ctx)

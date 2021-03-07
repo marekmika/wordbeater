@@ -27,8 +27,10 @@ const scoresRef = db.collection('gamers')
 
 export const fetchUserData = async () =>
   new Promise((resolve, reject) => {
-    initializedFirebase.auth().onAuthStateChanged(
+    return initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
+        console.log({ user })
+
         if (!user) {
           return resolve(null)
         }

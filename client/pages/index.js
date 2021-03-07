@@ -1,26 +1,29 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
 
 import GameInput from '@components/GameInput/GameInput'
 import GameWord from '@components/GameWord/GameWord'
 import GameInfo from '@components/GameInfo/GameInfo'
 
-import { fetchUserData } from '@services/firebaseService'
+import { fetchUserData, initializeFirebase } from '@services/firebaseService'
 import Layout from '@components/Layout/Layout'
 
 const GamePage = () => {
+  useEffect(() => {
+    initializeFirebase()
+      .auth()
+      .onAuthStateChanged((user) => {
+        console.log({ User2: user })
+      })
+  }, [])
+
   return (
     <Layout>
-      <GamePageWrapper>
-        <GameWord />
-        <GameInput />
-        <GameInfo />
-      </GamePageWrapper>
+      <GameWord />
+      <GameInput />
+      <GameInfo />
     </Layout>
   )
 }
-
-const GamePageWrapper = styled.div``
 
 // Add SSR
 GamePage.getInitialProps = async (ctx) => {
