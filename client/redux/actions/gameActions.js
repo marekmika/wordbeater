@@ -43,19 +43,16 @@ export const gameOverAction = () => {
   return async (dispatch, getState) => {
     const state = getState()
 
-    const { game } = state
+    const { game, user } = state
     const { score } = game
+    const { bestScores } = user
 
-    const fetchedUser = await fetchUserData()
-
-    const { beginner } = fetchedUser.bestScores
-
-    if (score > beginner) {
+    if (score > bestScores.beginner) {
       dispatch({
         type: GAME_ACTIONS_TYPES.START_UPDATE_SCORE,
       })
 
-      await updateUserScore(fetchedUser, score)
+      await updateUserScore(user, score)
 
       dispatch({
         type: GAME_ACTIONS_TYPES.SUCCESSFUL_UPDATE_SCORE,

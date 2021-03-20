@@ -2,10 +2,10 @@ import { applyMiddleware, createStore, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import thunk from 'redux-thunk'
 
-import game from './reducers/game'
-import user from './reducers/user'
+import game from '@redux/reducers/game'
+import user from '@redux/reducers/user'
 
-const getStore = () => {
+const getStore = (initialState) => {
   const reducers = combineReducers({
     game,
     user,
@@ -13,6 +13,7 @@ const getStore = () => {
 
   const store = createStore(
     reducers,
+    initialState,
     composeWithDevTools(applyMiddleware(thunk))
   )
 

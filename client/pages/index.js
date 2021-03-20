@@ -16,14 +16,10 @@ const GamePage = () => {
   )
 }
 
-// Add SSR
 GamePage.getInitialProps = async (ctx) => {
   const state = ctx.store.getState()
-  // const userData = await fetchUserData()
 
-  console.log({ Data: ctx })
-
-  return {}
+  return { state }
 }
 
 export default GamePage

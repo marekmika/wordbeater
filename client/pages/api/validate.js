@@ -10,7 +10,13 @@ const firebaseInstance = !admin.apps.length
   : admin.app()
 
 const validate = async (token) => {
-  const decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
+  let decodedToken = null
+
+  try {
+    decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
+  } catch (error) {
+    console.log({ error })
+  }
 
   let userData = null
 
@@ -23,21 +29,20 @@ const validate = async (token) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        userData = { ...doc.data() }
+        userData = { uid: decodedToken.uid, ...doc.data() }
       }
     })
     .catch((error) => {
       console.log('Error getting document:', error)
     })
 
-  console.log({ userData })
-
   return userData
 }
 
 export default async (req, res) => {
   try {
-    const { token } = JSON.parse(req.headers.authorization || '{}')
+    const { token } = JSON.parse(req.headers.authorization)
+
     if (!token) {
       return res.status(403).send({
         errorCode: 403,

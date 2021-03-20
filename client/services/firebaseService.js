@@ -29,8 +29,6 @@ export const fetchUserData = async () =>
   new Promise((resolve, reject) => {
     return initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
-        console.log({ user })
-
         if (!user) {
           return resolve(null)
         }

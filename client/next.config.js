@@ -1,5 +1,4 @@
 module.exports = {
-  basePath: '/game',
   publicRuntimeConfig: {
     apiKey: process.env.FIREBASE_PUBLIC_API_KEY,
     authDomain: process.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
