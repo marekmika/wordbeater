@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { useCurrentWordSelector } from '@redux/reducers/game'
 import { useIsGameProgress } from '@hooks/useIsGameInProgress'
 import theme from '@styles/theme'
+import { getRandomWord } from '@utils/WordGenerator'
+import { setCurrentWordAction } from '@redux/actions/gameActions'
 
 import {
   increaseScoreAction,
@@ -37,6 +39,10 @@ const GameInput = () => {
 
     clearInput()
 
+    const nextWord = getRandomWord()
+
+    dispatch(setCurrentWordAction(nextWord))
+
     if (!isGameInProgress) {
       dispatch(setIsUserPlayingAction(true))
 
@@ -49,7 +55,7 @@ const GameInput = () => {
 
   return (
     <GameInputWrapper>
-      <TextField
+      <StyledTextField
         variant="outlined"
         onChange={(event) => handleChange(event.target.value)}
         value={inputWord}
@@ -67,6 +73,10 @@ const GameInput = () => {
   )
 }
 
+const StyledTextField = styled(TextField)`
+  max-width: 20rem;
+`
+
 const GameInputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -77,7 +87,7 @@ const GameInputWrapper = styled.div`
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      maxWidth: '20rem',
+      // maxWidth: '20rem',
       backgroundColor: `${theme.colors.white}`,
       '& .MuiOutlinedInput-root': {
         '& fieldset': {

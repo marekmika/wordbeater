@@ -3,7 +3,8 @@ import { Avatar } from '@material-ui/core'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
-import theme from '@styles/theme'
+import LinkButton from '@components/shared/LinkButton'
+
 import { signUserAction, logoutUserAction } from '@redux/actions/userActions'
 import { userSelector } from '@redux/reducers/user'
 
@@ -44,10 +45,10 @@ const Auth = () => {
             style={{ height: '4rem', width: '5rem' }}
           />
         ) : (
-          <StyledButton onClick={logout}>Logout</StyledButton>
+          <LinkButton onClickAction={logout}>Logout</LinkButton>
         )
       ) : (
-        <StyledButton onClick={authentication}>Login</StyledButton>
+        <LinkButton onClickAction={authentication}>Login</LinkButton>
       )}
     </AuthContainer>
   )
@@ -57,21 +58,6 @@ const AuthContainer = styled.div`
   mi-height: 5rem;
   color: inherit;
   margin: auto 0;
-`
-
-const StyledButton = styled.button`
-  color: inherit;
-  background-color: inherit;
-  font-size: 36px;
-  line-height: 44px;
-  text-align: center;
-  text-decoration-line: underline;
-  border: 0;
-
-  &:hover {
-    color: ${theme.colors.grey};
-    cursor: pointer;
-  }
 `
 
 export default Auth

@@ -1,25 +1,12 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import styled from 'styled-components'
 
-import { getRandomWord } from '@utils/WordGenerator'
 import theme from '@styles/theme'
 
-import { setCurrentWordAction } from '@redux/actions/gameActions'
-
-import { useCurrentWordSelector, useScoreSelector } from '@redux/reducers/game'
+import { useCurrentWordSelector } from '@redux/reducers/game'
 
 const GameWord = () => {
-  const dispatch = useDispatch()
-
   const currentWord = useCurrentWordSelector()
-  const score = useScoreSelector()
-
-  useEffect(() => {
-    const currentWord = getRandomWord()
-
-    dispatch(setCurrentWordAction(currentWord))
-  }, [score])
 
   return (
     <GameWordWrapper>

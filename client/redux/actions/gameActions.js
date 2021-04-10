@@ -26,7 +26,7 @@ export const resetTimeAction = (seconds) => ({
   data: seconds,
 })
 
-export const reseScoreAction = (seconds) => ({
+export const resetScoreAction = (seconds) => ({
   type: GAME_ACTIONS_TYPES.RESET_TIME,
   data: seconds,
 })

@@ -91,6 +91,18 @@ export const updateUserScore = async (user, score) => {
   }
 }
 
+export const fetchBestBeginnerGamers = async () => {
+  const docs = await scoresRef.orderBy('email', 'desc').limit(3).get()
+
+  const betBeginnerGamers = []
+
+  docs.forEach((doc) => {
+    betBeginnerGamers.push(doc.data())
+  })
+
+  return betBeginnerGamers
+}
+
 export const logoutUser = async () => {
   return initializedFirebase.auth().signOut()
 }

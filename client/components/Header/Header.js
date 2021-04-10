@@ -1,14 +1,28 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
+
 import theme from '@styles/theme'
 import Auth from '@components/Auth/Auth'
+import LinkButton from '@components/shared/LinkButton'
 
 const Header = () => {
+  const router = useRouter()
+
+  const redirectToBestScores = () => {
+    return router.push('/best-scores')
+  }
+
   return (
     <HeaderWrapper>
       <NavWrapper>
-        <Link href="/game">WordBeater</Link>
-        <Auth />
+        <Logo href="/">WordBeater</Logo>
+        <NavigationContainer>
+          <LinkButton onClickAction={redirectToBestScores}>
+            Best scores
+          </LinkButton>
+          <Auth />
+        </NavigationContainer>
       </NavWrapper>
     </HeaderWrapper>
   )
@@ -27,7 +41,7 @@ const NavWrapper = styled.nav`
   margin: auto 15rem;
 `
 
-const Link = styled.a`
+const Logo = styled.a`
   text-decoration: none;
   background-size: 100%;
   background-repeat: repeat;
@@ -48,7 +62,12 @@ const Link = styled.a`
   font-weight: bold;
 
   font-size: 3rem;
-  line-height: 59px;
+  line-height: 4rem;
+`
+
+const NavigationContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `
 
 export default Header
