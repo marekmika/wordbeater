@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux'
 import { TextField, makeStyles, createStyles } from '@material-ui/core'
 import styled from 'styled-components'
 
-import { useCurrentWordSelector } from '@redux/reducers/game'
-import { useIsGameProgress } from '@hooks/useIsGameInProgress'
 import theme from '@styles/theme'
 import { getRandomWord } from '@utils/WordGenerator'
+
+import { useCurrentWordSelector } from '@redux/reducers/game'
+import { useIsGameProgress } from '@hooks/useIsGameInProgress'
 import { setCurrentWordAction } from '@redux/actions/gameActions'
 
 import {
@@ -73,10 +74,6 @@ const GameInput = () => {
   )
 }
 
-const StyledTextField = styled(TextField)`
-  max-width: 20rem;
-`
-
 const GameInputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -84,10 +81,13 @@ const GameInputWrapper = styled.div`
   margin-top: 1rem;
 `
 
+const StyledTextField = styled(TextField)`
+  width: clamp(10rem, 50%, 20rem);
+`
+
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      // maxWidth: '20rem',
       backgroundColor: `${theme.colors.white}`,
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
@@ -101,7 +101,6 @@ const useStyles = makeStyles(() =>
     resize: {
       color: `${theme.colors.black}`,
       fontSize: '2rem',
-      lineHeight: '2.5rem',
       textAlign: 'center',
     },
   })

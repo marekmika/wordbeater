@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { node, func } from 'prop-types'
 
 import theme from '@styles/theme'
+import { desktop, largeMobile } from '@components/shared/utils'
 
 const LinkButton = ({ children, onClickAction }) => {
   return <StyledButton onClick={onClickAction}>{children}</StyledButton>
@@ -11,16 +12,26 @@ const LinkButton = ({ children, onClickAction }) => {
 const StyledButton = styled.button`
   color: inherit;
   background-color: inherit;
-  font-size: 36px;
-  line-height: 44px;
+
   text-align: center;
   text-decoration-line: underline;
-  border: 0;
+  border: none;
+  outline: none;
 
   &:hover {
     color: ${theme.colors.grey};
     cursor: pointer;
   }
+
+  font-size: 1.2rem;
+
+  ${largeMobile`
+    font-size: 1.8rem;
+  `}
+
+  ${desktop`
+    font-size: 2.5rem;
+  `}
 `
 
 LinkButton.prototype = {

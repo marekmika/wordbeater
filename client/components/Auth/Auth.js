@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import LinkButton from '@components/shared/LinkButton'
+import { desktop } from '@components/shared/utils'
 
 import { signUserAction, logoutUserAction } from '@redux/actions/userActions'
 import { userSelector } from '@redux/reducers/user'
@@ -18,7 +19,7 @@ const Auth = () => {
 
   const authentication = async () => {
     try {
-      await dispatch(signUserAction())
+      return dispatch(signUserAction())
     } catch (error) {
       console.log({ error })
     }
@@ -26,7 +27,7 @@ const Auth = () => {
 
   const logout = async () => {
     try {
-      await dispatch(logoutUserAction())
+      return dispatch(logoutUserAction())
     } catch (error) {
       console.log({ error })
     }
@@ -39,11 +40,7 @@ const Auth = () => {
     >
       {user?.email ? (
         isMouseOnAuthContainer ? (
-          <Avatar
-            alt={user?.displayName}
-            src={user?.avatarUrl}
-            style={{ height: '4rem', width: '5rem' }}
-          />
+          <StyledAvatar alt={user?.displayName} src={user?.avatarUrl} />
         ) : (
           <LinkButton onClickAction={logout}>Logout</LinkButton>
         )
@@ -55,9 +52,20 @@ const Auth = () => {
 }
 
 const AuthContainer = styled.div`
-  mi-height: 5rem;
   color: inherit;
   margin: auto 0;
+`
+
+const StyledAvatar = styled(Avatar)`
+  && {
+    height: 2.5rem;
+    width: 2.5rem;
+
+    ${desktop`
+     height: 4rem;
+     width: 5rem;
+    `}
+  }
 `
 
 export default Auth

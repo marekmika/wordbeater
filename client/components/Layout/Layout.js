@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Head from 'next/head'
 import { node } from 'prop-types'
 
-import theme from '@styles/theme'
 import Header from '@components/Header/Header'
 
 const Layout = ({ children }) => {

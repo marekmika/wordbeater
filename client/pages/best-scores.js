@@ -1,6 +1,6 @@
 import React from 'react'
 
-import BestScores from '@components/BestScores/BestScores'
+import ScoreTable from '@components/ScoreTable/ScoreTable'
 import Layout from '@components/Layout/Layout'
 
 import { fetchBestBeginnerGamers } from '@services/firebaseService'
@@ -10,7 +10,7 @@ const BestScoresPage = ({ pageProps }) => {
 
   return (
     <Layout>
-      <BestScores rows={bestBeginnerGamers} nameLevelKey={'beginner'} />
+      <ScoreTable rows={bestBeginnerGamers} nameLevelKey={'beginner'} />
     </Layout>
   )
 }

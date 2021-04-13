@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 })
 
-const BestScores = ({ rows, nameLevelKey }) => {
+const ScoreTable = ({ rows, nameLevelKey }) => {
   const classes = useStyles()
 
   return (
@@ -56,7 +56,7 @@ const StyledTableCell = styled(TableCell)`
   font-size: 15pt !important;
 `
 
-BestScores.prototypes = {
+ScoreTable.prototypes = {
   rows: arrayOf(
     shape({
       email: string.isRequired,
@@ -66,4 +66,4 @@ BestScores.prototypes = {
   nameLevelKey: string.isRequired,
 }
 
-export default BestScores
+export default ScoreTable

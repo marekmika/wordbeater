@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import theme from '@styles/theme'
 import Auth from '@components/Auth/Auth'
 import LinkButton from '@components/shared/LinkButton'
+import { desktop } from '@components/shared/utils'
 
 const Header = () => {
   const router = useRouter()
@@ -30,15 +31,24 @@ const Header = () => {
 
 const HeaderWrapper = styled.div`
   color: ${theme.colors.white};
-  margin-top: 3rem;
-  margin-bottom: 10rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+
+  ${desktop`
+    margin-bottom: 10rem;
+    margin-top: 3rem;
+  `}
 `
 
 const NavWrapper = styled.nav`
   display: flex;
-  justify-content: space-between;
   min-height: 5rem;
-  margin: auto 15rem;
+  margin: auto 1rem;
+  justify-content: space-between;
+
+  ${desktop`
+    margin: auto 15rem;
+  `}
 `
 
 const Logo = styled.a`
@@ -61,8 +71,13 @@ const Logo = styled.a`
 
   font-weight: bold;
 
-  font-size: 3rem;
-  line-height: 4rem;
+  font-size: 2rem;
+  margin: auto 0;
+
+  ${desktop`
+    font-size: 3rem;
+    line-height: 4rem;
+  `}
 `
 
 const NavigationContainer = styled.div`
