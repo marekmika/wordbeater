@@ -1,11 +1,20 @@
 const admin = require('firebase-admin')
 
-const serviceAccount = require('../../serviceAccountKey.json')
+const {
+  PUBLIC_FIREBASE_PROJECT_ID,
+  PRIVATE_KEY,
+  CLIENT_EMAIL,
+  PUBLIC_FIREBASE_DB_URL,
+} = process.env
 
 const firebaseInstance = !admin.apps.length
   ? admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://wordbeater-next.firebaseio.com',
+      credential: admin.credential.cert({
+        projectId: PUBLIC_FIREBASE_PROJECT_ID,
+        clientEmail: CLIENT_EMAIL,
+        privateKey: PRIVATE_KEY,
+      }),
+      databaseURL: PUBLIC_FIREBASE_DB_URL,
     })
   : admin.app()
 
