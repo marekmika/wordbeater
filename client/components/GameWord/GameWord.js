@@ -1,16 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
+import getConfig from 'next/config'
 
 import theme from '@styles/theme'
 
 import { useCurrentWordSelector } from '@redux/reducers/game'
+
+const { publicRuntimeConfig } = getConfig()
+
+const { NODE_ENV } = publicRuntimeConfig
+
+const isDevelopment = NODE_ENV === 'development'
 
 const GameWord = () => {
   const currentWord = useCurrentWordSelector()
 
   return (
     <GameWordWrapper>
-      <WordTypography>{currentWord}</WordTypography>
+      <WordTypography isDevelopment={isDevelopment}>
+        {currentWord}
+      </WordTypography>
     </GameWordWrapper>
   )
 }
@@ -27,6 +36,15 @@ const GameWordWrapper = styled.div`
 const WordTypography = styled.span`
   font-weight: bold;
   font-size: clamp(2rem, 5vw, 2.5rem);
+
+  ${(isDevelopment) =>
+    !isDevelopment &&
+    `
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none;
+  `}
 `
 
 export default GameWord

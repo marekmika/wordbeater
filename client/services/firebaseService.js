@@ -7,10 +7,10 @@ import 'firebase/analytics'
 const { publicRuntimeConfig } = getConfig()
 
 const config = {
-  apiKey: publicRuntimeConfig.apiKey,
-  authDomain: publicRuntimeConfig.authDomain,
-  databaseURL: publicRuntimeConfig.databaseURL,
-  projectId: publicRuntimeConfig.projectId,
+  apiKey: publicRuntimeConfig.API_KEY,
+  authDomain: publicRuntimeConfig.AUTH_DOMAIN,
+  databaseURL: publicRuntimeConfig.DATABASE_URL,
+  projectId: publicRuntimeConfig.PROJECT_ID,
 }
 
 export function initializeFirebase() {

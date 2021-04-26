@@ -1,59 +1,40 @@
 import React from 'react'
 import styled from 'styled-components'
 import { object, shape, string, arrayOf } from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-
-const useStyles = makeStyles({
-  paper: {
-    backgroundColor: 'black',
-  },
-  table: {
-    minWidth: 450,
-    maxWidth: 650,
-    margin: 'auto',
-  },
-  tableRow: {
-    fontSize: '45pt',
-  },
-})
 
 const ScoreTable = ({ rows, nameLevelKey }) => {
-  const classes = useStyles()
-
   return (
-    <Table className={classes.table} aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          <StyledTableCell></StyledTableCell>
-          <StyledTableCell align="center">Email</StyledTableCell>
-          <StyledTableCell align="center">Score</StyledTableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row, index) => (
-          <TableRow className={classes.tableRow} key={index + 1}>
-            <StyledTableCell component="th" scope="row">
-              {index + 1}
-            </StyledTableCell>
-            <StyledTableCell align="center">{row.email}</StyledTableCell>
-            <StyledTableCell align="center">
-              {row.bestScores[nameLevelKey]}
-            </StyledTableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <StyledTable>
+      <StyledTableRow>
+        <th></th>
+        <th>Email</th>
+        <th>Score</th>
+      </StyledTableRow>
+      {rows.map((row, index) => (
+        <StyledTableRow>
+          <StyledTableData>{index + 1}</StyledTableData>
+          <StyledTableData>{row.email}</StyledTableData>
+          <StyledTableData>{row.bestScores[nameLevelKey]}</StyledTableData>
+        </StyledTableRow>
+      ))}
+    </StyledTable>
   )
 }
 
-const StyledTableCell = styled(TableCell)`
-  color: white !important;
-  font-size: 15pt !important;
+const StyledTable = styled.table`
+  width: clamp(20rem, 50%, 60rem);
+  font-size: clamp(15pt, 5vw, 20pt);
+  border-collapse: collapse;
+  padding: 15px;
+`
+
+const StyledTableRow = styled.tr`
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+`
+
+const StyledTableData = styled.td`
+  padding: 15px;
 `
 
 ScoreTable.prototypes = {

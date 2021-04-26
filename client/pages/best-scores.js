@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import ScoreTable from '@components/ScoreTable/ScoreTable'
 import Layout from '@components/Layout/Layout'
@@ -10,7 +11,9 @@ const BestScoresPage = ({ pageProps }) => {
 
   return (
     <Layout>
-      <ScoreTable rows={bestBeginnerGamers} nameLevelKey={'beginner'} />
+      <Container>
+        <ScoreTable rows={bestBeginnerGamers} nameLevelKey={'beginner'} />
+      </Container>
     </Layout>
   )
 }
@@ -20,5 +23,10 @@ BestScoresPage.getInitialProps = async (ctx) => {
 
   return { bestBeginnerGamers }
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 export default BestScoresPage
