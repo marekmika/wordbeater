@@ -5,8 +5,14 @@ import ScoreTable from '@components/ScoreTable/ScoreTable'
 import Layout from '@components/Layout/Layout'
 
 import { fetchBestBeginnerGamers } from '@services/firebaseService'
+import { AppProps } from 'next/app'
+import { GetServerSideProps } from 'next'
 
-const BestScoresPage = ({ pageProps }) => {
+const BestScoresPage: React.FC<AppProps> = ({ pageProps }): JSX.Element => {
+  if (!pageProps?.bestBeginnerGamers) {
+    return <div>Loading...</div>
+  }
+
   const { bestBeginnerGamers } = pageProps
 
   return (
@@ -18,10 +24,10 @@ const BestScoresPage = ({ pageProps }) => {
   )
 }
 
-BestScoresPage.getInitialProps = async (ctx) => {
+export async function getServerSideProps(context: GetServerSideProps) {
   const bestBeginnerGamers = await fetchBestBeginnerGamers()
 
-  return { bestBeginnerGamers }
+  return { props: { bestBeginnerGamers } }
 }
 
 const Container = styled.div`

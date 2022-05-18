@@ -16,20 +16,20 @@ import {
   resetTimeAction,
 } from '@redux/actions/gameActions'
 
-const GameInput = () => {
+const GameInput: React.FC = (): JSX.Element => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
   const currentWord = useCurrentWordSelector()
   const isGameInProgress = useIsGameProgress()
 
-  const [inputWord, setInputWord] = useState()
+  const [inputWord, setInputWord] = useState<string>()
 
   const clearInput = () => {
     setInputWord('')
   }
 
-  const handleChange = async (value) => {
+  const handleChange = async (value: string) => {
     setInputWord(value)
 
     const isValueSameCurrentWord = currentWord === value

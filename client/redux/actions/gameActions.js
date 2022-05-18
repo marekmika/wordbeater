@@ -47,7 +47,8 @@ export const gameOverAction = () => {
     const { score } = game
     const { bestScores } = user
 
-    if (score > bestScores.beginner) {
+  
+    if (bestScores?.beginner && score > bestScores.beginner) {
       dispatch({
         type: GAME_ACTIONS_TYPES.START_UPDATE_SCORE,
       })

@@ -12,7 +12,7 @@ const { NODE_ENV } = publicRuntimeConfig
 
 const isDevelopment = NODE_ENV === 'development'
 
-const GameWord = () => {
+const GameWord: React.FC = (): JSX.Element => {
   const currentWord = useCurrentWordSelector()
 
   return (
@@ -33,7 +33,7 @@ const GameWordWrapper = styled.div`
   margin-bottom: 4rem;
 `
 
-const WordTypography = styled.span`
+const WordTypography = styled.span<{ isDevelopment?: boolean }>`
   font-weight: bold;
   font-size: clamp(2rem, 5vw, 2.5rem);
 

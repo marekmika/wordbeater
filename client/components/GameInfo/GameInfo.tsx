@@ -15,13 +15,13 @@ import {
 
 const ONE_SECOND = 1000
 
-const GameInfo = () => {
+const GameInfo: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
   const score = useScoreSelector()
   const time = useTimeSelector()
   const isGameInProgress = useIsGameProgress()
 
-  const [intervalId, setIntervalId] = useState(null)
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
 
   const decreaseTime = () => {
     dispatch(decreaseTimeAction())
@@ -36,7 +36,7 @@ const GameInfo = () => {
   }, [isGameInProgress])
 
   useEffect(() => {
-    if (time !== 0) {
+    if (time !== 0 || !intervalId) {
       return
     }
 

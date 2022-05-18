@@ -7,7 +7,7 @@ import Auth from '@components/Auth/Auth'
 import LinkButton from '@components/shared/LinkButton'
 import { desktop } from '@components/shared/utils'
 
-const Header = () => {
+const Header: React.FC = (): JSX.Element => {
   const router = useRouter()
 
   const redirectToBestScores = () => {

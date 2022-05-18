@@ -1,11 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { node, func } from 'prop-types'
 
 import theme from '@styles/theme'
 import { desktop, largeMobile } from '@components/shared/utils'
 
-const LinkButton = ({ children, onClickAction }) => {
+interface LinkButtonProps {
+  children: React.ReactNode
+  onClickAction: () => void
+}
+
+const LinkButton: React.FC<LinkButtonProps> = ({
+  children,
+  onClickAction,
+}): JSX.Element => {
   return <StyledButton onClick={onClickAction}>{children}</StyledButton>
 }
 
@@ -33,10 +40,5 @@ const StyledButton = styled.button`
     font-size: 2.5rem;
   `}
 `
-
-LinkButton.prototype = {
-  children: node.isRequired,
-  onClickAction: func.isRequired,
-}
 
 export default LinkButton

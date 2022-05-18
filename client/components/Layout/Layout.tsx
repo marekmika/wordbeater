@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
-import { node } from 'prop-types'
 
 import Header from '@components/Header/Header'
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }): JSX.Element => {
   return (
     <LayoutContainer>
       <Head>
@@ -19,9 +22,5 @@ const Layout = ({ children }) => {
 }
 
 const LayoutContainer = styled.div``
-
-Layout.propTypes = {
-  children: node.isRequired,
-}
 
 export default Layout

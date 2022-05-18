@@ -54,6 +54,8 @@ class App extends NextApp {
 }
 
 const handleCurrentUser = async (ctx) => {
+  // TODO: Check next doc with getServerSideProps
+  // https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props
   if (!IS_SERVER) {
     return
   }

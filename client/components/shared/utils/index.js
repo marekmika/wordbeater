@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 
+// TODO: will be replaced by x.styled handling
 const mediaQuery = (name) => (...styles) => {
   return css`
     @media (min-width: ${({ theme }) => theme.breakPoints[name]}) {

@@ -2,7 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { object, shape, string, arrayOf } from 'prop-types'
 
-const ScoreTable = ({ rows, nameLevelKey }) => {
+interface ScoreTableProps {
+  rows: {
+    email: string
+    bestScores: any
+  }[]
+  nameLevelKey: any // TODO
+}
+
+const ScoreTable: React.FC<ScoreTableProps> = ({
+  rows,
+  nameLevelKey,
+}): JSX.Element => {
   return (
     <StyledTable>
       <StyledTableRow>
@@ -36,15 +47,5 @@ const StyledTableRow = styled.tr`
 const StyledTableData = styled.td`
   padding: 15px;
 `
-
-ScoreTable.prototypes = {
-  rows: arrayOf(
-    shape({
-      email: string.isRequired,
-      bestScores: object.isRequired,
-    })
-  ).isRequired,
-  nameLevelKey: string.isRequired,
-}
 
 export default ScoreTable

@@ -9,7 +9,7 @@ import { desktop } from '@components/shared/utils'
 import { signUserAction, logoutUserAction } from '@redux/actions/userActions'
 import { userSelector } from '@redux/reducers/user'
 
-const Auth = () => {
+const Auth: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
   const user = userSelector()
 
@@ -17,17 +17,17 @@ const Auth = () => {
     user?.email
   )
 
-  const authentication = async () => {
+  const authentication = () => {
     try {
-      return dispatch(signUserAction())
+      dispatch(signUserAction())
     } catch (error) {
       console.log({ error })
     }
   }
 
-  const logout = async () => {
+  const logout = () => {
     try {
-      return dispatch(logoutUserAction())
+      dispatch(logoutUserAction())
     } catch (error) {
       console.log({ error })
     }
@@ -62,8 +62,8 @@ const StyledAvatar = styled(Avatar)`
     width: 2.5rem;
 
     ${desktop`
-     height: 4rem;
-     width: 5rem;
+      height: 4rem;
+      width: 5rem;
     `}
   }
 `
