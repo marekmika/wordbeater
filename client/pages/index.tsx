@@ -15,10 +15,4 @@ const GamePage = () => {
   )
 }
 
-GamePage.getInitialProps = async (ctx) => {
-  const state = ctx.store.getState()
-
-  return { state }
-}
-
 export default GamePage

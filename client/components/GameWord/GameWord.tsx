@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import getConfig from 'next/config'
 
 import theme from '@styles/theme'
-
-import { useCurrentWordSelector } from '@redux/reducers/game'
+import { useSelector } from 'react-redux'
+import { AppState } from '@redux/store'
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -13,7 +13,7 @@ const { NODE_ENV } = publicRuntimeConfig
 const isDevelopment = NODE_ENV === 'development'
 
 const GameWord: React.FC = (): JSX.Element => {
-  const currentWord = useCurrentWordSelector()
+  const currentWord = useSelector((state: AppState) => state.game.currentWord)
 
   return (
     <GameWordWrapper>

@@ -1,27 +1,28 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextField, makeStyles, createStyles } from '@material-ui/core'
 import styled from 'styled-components'
 
 import theme from '@styles/theme'
-import { getRandomWord } from '@utils/WordGenerator'
-
-import { useCurrentWordSelector } from '@redux/reducers/game'
-import { useIsGameProgress } from '@hooks/useIsGameInProgress'
-import { setCurrentWordAction } from '@redux/actions/gameActions'
 
 import {
-  increaseScoreAction,
-  setIsUserPlayingAction,
-  resetTimeAction,
-} from '@redux/actions/gameActions'
+  increaseScore,
+  resetTime,
+  setCurrentWord,
+  setIsUserPlaying,
+} from '@redux/slices/game'
+import { AppState } from '@redux/store'
+import { updateUserScore } from '@services/firebaseService'
 
 const GameInput: React.FC = (): JSX.Element => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const currentWord = useCurrentWordSelector()
-  const isGameInProgress = useIsGameProgress()
+  const { currentWord, score } = useSelector((state: AppState) => state.game)
+  const isGameInProgress = useSelector(
+    (state: AppState) => state.game.isUserPlaying
+  )
+  const user = useSelector((state: AppState) => state.user)
 
   const [inputWord, setInputWord] = useState<string>()
 
@@ -38,20 +39,20 @@ const GameInput: React.FC = (): JSX.Element => {
       return
     }
 
+    await updateUserScore(user, score)
+
     clearInput()
 
-    const nextWord = getRandomWord()
-
-    dispatch(setCurrentWordAction(nextWord))
+    dispatch(setCurrentWord())
 
     if (!isGameInProgress) {
-      dispatch(setIsUserPlayingAction(true))
+      dispatch(setIsUserPlaying(true))
 
       return
     }
 
-    dispatch(increaseScoreAction())
-    dispatch(resetTimeAction())
+    dispatch(increaseScore())
+    dispatch(resetTime())
   }
 
   return (

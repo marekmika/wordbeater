@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
 import { Avatar } from '@material-ui/core'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LinkButton from '@components/shared/LinkButton'
 import { desktop } from '@components/shared/utils'
-
-import { signUserAction, logoutUserAction } from '@redux/actions/userActions'
-import { userSelector } from '@redux/reducers/user'
+import { signUserAction } from '@redux/slices/user'
+import { AppState } from '@redux/store'
 
 const Auth: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
-  const user = userSelector()
+  const user = useSelector((state: AppState) => state.user)
 
   const [isMouseOnAuthContainer, setIsMouseOnAuthContainer] = useState(
-    user?.email
+    !!user?.email
   )
 
   const authentication = () => {
@@ -27,7 +26,7 @@ const Auth: React.FC = (): JSX.Element => {
 
   const logout = () => {
     try {
-      dispatch(logoutUserAction())
+      // dispatch(logoutUserAction())
     } catch (error) {
       console.log({ error })
     }

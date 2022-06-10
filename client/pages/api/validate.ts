@@ -1,4 +1,7 @@
-const admin = require('firebase-admin')
+// const admin = require('firebase-admin')
+import { UserState } from '@redux/slices/user'
+import admin from 'firebase-admin'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 const {
   PUBLIC_FIREBASE_PROJECT_ID,
@@ -18,14 +21,8 @@ const firebaseInstance = !admin.apps.length
     })
   : admin.app()
 
-const validate = async (token) => {
-  let decodedToken = null
-
-  try {
-    decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
-  } catch (error) {
-    console.log({ error })
-  }
+const validate = async (token: string) => {
+  const decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
 
   let userData = null
 
@@ -48,9 +45,17 @@ const validate = async (token) => {
   return userData
 }
 
-export default async (req, res) => {
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<UserState | any> => {
   try {
-    const { token } = JSON.parse(req.headers.authorization)
+    if (!req.headers.authorization) {
+      return res.status(400)
+    }
+
+    const authorization = JSON.parse(req.headers.authorization)
+    const { token } = authorization
 
     if (!token) {
       return res.status(403).send({
@@ -60,11 +65,8 @@ export default async (req, res) => {
     }
 
     const result = await validate(token)
-
     return res.status(200).send(result)
   } catch (err) {
-    console.log(err)
-
-    return res.status(200).send(undefined)
+    return res.status(500).send(err)
   }
 }

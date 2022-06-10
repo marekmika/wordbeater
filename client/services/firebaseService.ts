@@ -3,6 +3,15 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/analytics'
+import { UserState } from '@redux/slices/user'
+
+export type UserData = {
+  email: string
+  createdAt: number
+  bestScores: {
+    beginner: number
+  }
+}
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -25,7 +34,8 @@ const initializedFirebase = initializeFirebase()
 const db = initializedFirebase.firestore()
 const scoresRef = db.collection('gamers')
 
-export const fetchUserData = async () =>
+// TODO: Types of firebase
+export const fetchUserData = async (): Promise<any | null> =>
   new Promise((resolve, reject) => {
     return initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
@@ -58,7 +68,7 @@ export const fetchUserData = async () =>
 export const signInWithPopup = async () => {
   const provider = new firebase.auth.GoogleAuthProvider()
 
-  let loggedUser = null
+  let loggedUser: UserState
 
   try {
     loggedUser = await fetchUserData()
@@ -75,8 +85,8 @@ export const signInWithPopup = async () => {
   }
 }
 
-export const updateUserScore = async (user, score) => {
-  if (!user || !score) {
+export const updateUserScore = async (user: UserState, score: number) => {
+  if (!user || !user.bestScores || !user.uid || !score) {
     return
   }
 
@@ -93,14 +103,15 @@ export const updateUserScore = async (user, score) => {
 
 export const fetchBestBeginnerGamers = async () => {
   const docs = await scoresRef.orderBy('email', 'desc').limit(3).get()
-
-  const betBeginnerGamers = []
+  const betBeginnerGamers: UserData[] = []
 
   docs.forEach((doc) => {
-    betBeginnerGamers.push(doc.data())
+    betBeginnerGamers.push(doc.data() as UserData)
   })
 
-  return betBeginnerGamers
+  return betBeginnerGamers.sort(
+    (a, b) => Number(b.bestScores.beginner) - Number(a.bestScores.beginner)
+  )
 }
 
 export const logoutUser = async () => {

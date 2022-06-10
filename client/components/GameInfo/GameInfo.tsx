@@ -1,39 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { desktop } from '@components/shared/utils'
 
-import { useIsGameProgress } from '@hooks/useIsGameInProgress'
-import { useScoreSelector, useTimeSelector } from '@redux/reducers/game'
-
-import {
-  decreaseTimeAction,
-  setIsUserPlayingAction,
-  gameOverAction,
-} from '@redux/actions/gameActions'
+import { resetGame, setIsUserPlaying, decreaseTime } from '@redux/slices/game'
+import { AppState } from '@redux/store'
+import { updateUserScore } from '@services/firebaseService'
 
 const ONE_SECOND = 1000
 
 const GameInfo: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
-  const score = useScoreSelector()
-  const time = useTimeSelector()
-  const isGameInProgress = useIsGameProgress()
+  const { score, time, isUserPlaying } = useSelector(
+    (state: AppState) => state.game
+  )
 
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
 
-  const decreaseTime = () => {
-    dispatch(decreaseTimeAction())
-  }
+  const onDecreaseTime = useCallback(async () => {
+    dispatch(decreaseTime())
+  }, [])
 
   useEffect(() => {
-    if (isGameInProgress) {
-      setIntervalId(setInterval(decreaseTime, ONE_SECOND))
+    if (isUserPlaying) {
+      setIntervalId(setInterval(onDecreaseTime, ONE_SECOND))
 
       return
     }
-  }, [isGameInProgress])
+  }, [isUserPlaying])
 
   useEffect(() => {
     if (time !== 0 || !intervalId) {
@@ -41,9 +36,9 @@ const GameInfo: React.FC = (): JSX.Element => {
     }
 
     clearInterval(intervalId)
-    dispatch(setIsUserPlayingAction(false))
+    dispatch(setIsUserPlaying(false))
 
-    dispatch(gameOverAction())
+    dispatch(resetGame())
   }, [time])
 
   return (

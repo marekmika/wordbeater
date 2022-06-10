@@ -4,16 +4,16 @@ import styled from 'styled-components'
 import ScoreTable from '@components/ScoreTable/ScoreTable'
 import Layout from '@components/Layout/Layout'
 
-import { fetchBestBeginnerGamers } from '@services/firebaseService'
+import { fetchBestBeginnerGamers, UserData } from '@services/firebaseService'
 import { AppProps } from 'next/app'
 import { GetServerSideProps } from 'next'
 
-const BestScoresPage: React.FC<AppProps> = ({ pageProps }): JSX.Element => {
-  if (!pageProps?.bestBeginnerGamers) {
+const BestScoresPage: React.FC<
+  AppProps & { bestBeginnerGamers: UserData[] }
+> = ({ bestBeginnerGamers }): JSX.Element => {
+  if (!bestBeginnerGamers) {
     return <div>Loading...</div>
   }
-
-  const { bestBeginnerGamers } = pageProps
 
   return (
     <Layout>
