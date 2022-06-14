@@ -10,6 +10,7 @@ export interface UserState {
   uid?: string | null
   email: string | null
   bestScores: { beginner: number } | null
+  photoUrl?: string
 }
 
 const initialState: UserState = {
@@ -70,6 +71,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(logoutUserAction.fulfilled, (state, action) => {
       state = initialState
+      return state
     })
     builder.addCase(signUserAction.fulfilled, (state, action) => {
       console.log('🚀 ~ builder.addCase ~ state', action)

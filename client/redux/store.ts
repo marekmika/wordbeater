@@ -1,5 +1,4 @@
 import {
-  AnyAction,
   combineReducers,
   configureStore,
   Store,

@@ -39,6 +39,7 @@ export const fetchUserData = async (): Promise<any | null> =>
   new Promise((resolve, reject) => {
     return initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
+        console.log('🚀 ~ fetchUserData', user)
         if (!user) {
           return resolve(null)
         }
@@ -55,6 +56,7 @@ export const fetchUserData = async (): Promise<any | null> =>
           bestScores: {
             beginner: 0,
           },
+          photoUrl: user.photoURL,
         }
 
         await scoresRef.doc(user.uid).set(newUserDoc)

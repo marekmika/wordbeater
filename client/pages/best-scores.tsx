@@ -8,6 +8,7 @@ import { fetchBestBeginnerGamers, UserData } from '@services/firebaseService'
 import { AppProps } from 'next/app'
 import { GetServerSideProps } from 'next'
 
+// TODO: Redirect is processing too long
 const BestScoresPage: React.FC<
   AppProps & { bestBeginnerGamers: UserData[] }
 > = ({ bestBeginnerGamers }): JSX.Element => {
