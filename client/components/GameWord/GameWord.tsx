@@ -12,18 +12,6 @@ const { NODE_ENV } = publicRuntimeConfig
 
 const isDevelopment = NODE_ENV === 'development'
 
-const GameWord: React.FC = (): JSX.Element => {
-  const currentWord = useSelector((state: AppState) => state.game.currentWord)
-
-  return (
-    <GameWordWrapper>
-      <WordTypography isDevelopment={isDevelopment}>
-        {currentWord}
-      </WordTypography>
-    </GameWordWrapper>
-  )
-}
-
 const GameWordWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -46,5 +34,17 @@ const WordTypography = styled.span<{ isDevelopment?: boolean }>`
     user-select: none;
   `}
 `
+
+const GameWord: React.FC = (): JSX.Element => {
+  const currentWord = useSelector((state: AppState) => state.game.currentWord)
+
+  return (
+    <GameWordWrapper>
+      <WordTypography isDevelopment={isDevelopment}>
+        {currentWord}
+      </WordTypography>
+    </GameWordWrapper>
+  )
+}
 
 export default GameWord

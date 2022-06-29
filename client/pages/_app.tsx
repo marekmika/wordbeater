@@ -44,9 +44,20 @@ const App = (props: AppProps & { user: UserState }) => {
   )
 }
 
+// TODOS:
+// Move all styled to up
+// Rewrite to atomic design
+// UserInfo damages ui is wrong on mobile
+// Solve the issue with first load app -> user is not logged
+// Add https://www.npmjs.com/package/react-toastify for information what happening
+// redirect to best-scores takes too long
+// Improve handling of responsibility of styles (delete/shared/utils/index.js)
+
 App.getInitialProps = async ({ Component, ctx }: AppContext) => {
   const pageProps = await Component.getInitialProps?.(ctx)
   const result = await getCurrentUserData(ctx)
+  console.log('Check when app is started...')
+  console.log('🚀 ~ App.getInitialProps= ~ result', result)
 
   return { pageProps, user: result }
 }
@@ -69,7 +80,6 @@ const getCurrentUserData = async (ctx: NextPageContext<any>) => {
       Authorization: JSON.stringify({ token: firebaseToken }),
     }
 
-    // TODO: Add axios to project
     const userData: UserState = await fetch(`${baseUrl}/api/validate`, {
       headers,
     }).then((res) => {

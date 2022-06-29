@@ -23,6 +23,7 @@ const firebaseInstance = !admin.apps.length
 
 const validate = async (token: string) => {
   const decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
+  console.log('🚀 ~ validate ~ decodedToken', decodedToken)
 
   let userData = null
 

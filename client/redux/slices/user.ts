@@ -1,9 +1,11 @@
+import { AppState } from '@redux/store'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import {
   fetchUserData,
   logoutUser,
   signInWithPopup,
+  updateUserScore,
 } from '@services/firebaseService'
 
 export interface UserState {
@@ -49,6 +51,19 @@ export const signUserAction = createAsyncThunk('signUserAction', async () => {
   }
 })
 
+export const updateUserScoreAction = createAsyncThunk(
+  'updateUserScoreAction',
+  async (arg, { getState }) => {
+    try {
+      const state = getState() as AppState
+
+      return updateUserScore(state.user, state.game.score)
+    } catch (error) {
+      console.log({ error })
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -74,8 +89,6 @@ export const userSlice = createSlice({
       return state
     })
     builder.addCase(signUserAction.fulfilled, (state, action) => {
-      console.log('🚀 ~ builder.addCase ~ state', action)
-
       state = action.payload
       return state
     })

@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { TextField, makeStyles, createStyles } from '@material-ui/core'
 import styled from 'styled-components'
-
-import theme from '@styles/theme'
 
 import {
   increaseScore,
@@ -13,9 +10,16 @@ import {
 } from '@redux/slices/game'
 import { AppState } from '@redux/store'
 import { updateUserScore } from '@services/firebaseService'
+import TextField from '@components/elements/TextField/TextField'
+
+const GameInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+`
 
 const GameInput: React.FC = (): JSX.Element => {
-  const classes = useStyles()
   const dispatch = useDispatch()
 
   const { currentWord, score } = useSelector((state: AppState) => state.game)
@@ -57,54 +61,9 @@ const GameInput: React.FC = (): JSX.Element => {
 
   return (
     <GameInputWrapper>
-      <StyledTextField
-        variant="outlined"
-        onChange={(event) => handleChange(event.target.value)}
-        value={inputWord}
-        classes={{
-          root: classes.root,
-        }}
-        InputProps={{
-          classes: {
-            input: classes.resize,
-          },
-        }}
-        autoFocus
-      />
+      <TextField handleChange={handleChange} value={inputWord} />
     </GameInputWrapper>
   )
 }
-
-const GameInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
-`
-
-const StyledTextField = styled(TextField)`
-  width: clamp(10rem, 50%, 20rem);
-`
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      backgroundColor: `${theme.colors.white}`,
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          border: '0',
-        },
-        '&.Mui-focused fieldset': {
-          border: '0',
-        },
-      },
-    },
-    resize: {
-      color: `${theme.colors.black}`,
-      fontSize: '2rem',
-      textAlign: 'center',
-    },
-  })
-)
 
 export default GameInput

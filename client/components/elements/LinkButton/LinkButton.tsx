@@ -4,18 +4,6 @@ import styled from 'styled-components'
 import theme from '@styles/theme'
 import { desktop, largeMobile } from '@components/shared/utils'
 
-interface LinkButtonProps {
-  children: React.ReactNode
-  onClickAction: () => void
-}
-
-const LinkButton: React.FC<LinkButtonProps> = ({
-  children,
-  onClickAction,
-}): JSX.Element => {
-  return <StyledButton onClick={onClickAction}>{children}</StyledButton>
-}
-
 const StyledButton = styled.button`
   color: inherit;
   background-color: inherit;
@@ -40,5 +28,16 @@ const StyledButton = styled.button`
     font-size: 2.5rem;
   `}
 `
+interface LinkButtonProps {
+  children: React.ReactNode
+  onClickAction: () => void
+}
+
+const LinkButton: React.FC<LinkButtonProps> = ({
+  children,
+  onClickAction,
+}): JSX.Element => {
+  return <StyledButton onClick={onClickAction}>{children}</StyledButton>
+}
 
 export default LinkButton

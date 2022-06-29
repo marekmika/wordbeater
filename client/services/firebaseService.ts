@@ -97,7 +97,11 @@ export const updateUserScore = async (user: UserState, score: number) => {
   }
 
   try {
-    return scoresRef.doc(user.uid).update({ bestScores: { beginner: score } })
+    const result = scoresRef
+      .doc(user.uid)
+      .update({ bestScores: { beginner: score } })
+    console.log('🚀 ~ updateUserScore ~ result', result)
+    return result
   } catch (error) {
     console.log({ error })
   }

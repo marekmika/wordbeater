@@ -6,54 +6,7 @@ import { desktop } from '@components/shared/utils'
 
 import { resetGame, setIsUserPlaying, decreaseTime } from '@redux/slices/game'
 import { AppState } from '@redux/store'
-import { updateUserScore } from '@services/firebaseService'
-
-const ONE_SECOND = 1000
-
-const GameInfo: React.FC = (): JSX.Element => {
-  const dispatch = useDispatch()
-  const { score, time, isUserPlaying } = useSelector(
-    (state: AppState) => state.game
-  )
-
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
-
-  const onDecreaseTime = useCallback(async () => {
-    dispatch(decreaseTime())
-  }, [])
-
-  useEffect(() => {
-    if (isUserPlaying) {
-      setIntervalId(setInterval(onDecreaseTime, ONE_SECOND))
-
-      return
-    }
-  }, [isUserPlaying])
-
-  useEffect(() => {
-    if (time !== 0 || !intervalId) {
-      return
-    }
-
-    clearInterval(intervalId)
-    dispatch(setIsUserPlaying(false))
-
-    dispatch(resetGame())
-  }, [time])
-
-  return (
-    <GameInfoWrapper>
-      <GameInfoContainer>
-        <StyledTypography>Time</StyledTypography>
-        <StyledTypography>{time}</StyledTypography>
-      </GameInfoContainer>
-      <GameInfoContainer>
-        <StyledTypography>Score</StyledTypography>
-        <StyledTypography>{score}</StyledTypography>
-      </GameInfoContainer>
-    </GameInfoWrapper>
-  )
-}
+import { updateUserScoreAction } from '@redux/slices/user'
 
 const GameInfoWrapper = styled.div`
   display: flex;
@@ -82,5 +35,52 @@ const GameInfoContainer = styled.div`
 const StyledTypography = styled.p`
   margin: 1rem 0;
 `
+
+const GameInfo: React.FC = (): JSX.Element => {
+  const dispatch = useDispatch()
+  const { score, time, isUserPlaying } = useSelector(
+    (state: AppState) => state.game
+  )
+
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
+
+  const onDecreaseTime = useCallback(async () => {
+    dispatch(decreaseTime())
+  }, [])
+
+  useEffect(() => {
+    if (isUserPlaying) {
+      setIntervalId(setInterval(onDecreaseTime, 1000))
+
+      return
+    }
+  }, [isUserPlaying])
+
+  // TODO: Better handling of decreasing time??
+  useEffect(() => {
+    console.log('🚀 ~ useEffect ~ time', time)
+    if (time !== 0 || !intervalId) {
+      return
+    }
+
+    clearInterval(intervalId)
+    dispatch(setIsUserPlaying(false))
+    dispatch(updateUserScoreAction())
+    dispatch(resetGame())
+  }, [time])
+
+  return (
+    <GameInfoWrapper>
+      <GameInfoContainer>
+        <StyledTypography>Time</StyledTypography>
+        <StyledTypography>{time}</StyledTypography>
+      </GameInfoContainer>
+      <GameInfoContainer>
+        <StyledTypography>Score</StyledTypography>
+        <StyledTypography>{score}</StyledTypography>
+      </GameInfoContainer>
+    </GameInfoWrapper>
+  )
+}
 
 export default GameInfo
