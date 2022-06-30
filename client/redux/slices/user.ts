@@ -27,7 +27,7 @@ export const fetchUserDataAction = createAsyncThunk(
     try {
       return fetchUserData()
     } catch (error) {
-      console.log({ error })
+      console.error({ error })
     }
   }
 )
@@ -38,7 +38,7 @@ export const logoutUserAction = createAsyncThunk(
     try {
       await logoutUser()
     } catch (error) {
-      console.log({ error })
+      console.error({ error })
     }
   }
 )
@@ -47,7 +47,7 @@ export const signUserAction = createAsyncThunk('signUserAction', async () => {
   try {
     return signInWithPopup()
   } catch (error) {
-    console.log({ error })
+    console.error({ error })
   }
 })
 
@@ -59,7 +59,7 @@ export const updateUserScoreAction = createAsyncThunk(
 
       return updateUserScore(state.user, state.game.score)
     } catch (error) {
-      console.log({ error })
+      console.error({ error })
     }
   }
 )

@@ -45,13 +45,10 @@ const App = (props: AppProps & { user: UserState }) => {
 }
 
 // TODOS:
-// Move all styled to up
 // Rewrite to atomic design
-// UserInfo damages ui is wrong on mobile
 // Solve the issue with first load app -> user is not logged
 // Add https://www.npmjs.com/package/react-toastify for information what happening
-// redirect to best-scores takes too long
-// Improve handling of responsibility of styles (delete/shared/utils/index.js)
+// next-dev.js?3515:25 Warning: Text content did not match. Server: "statue" Client: "river"
 
 App.getInitialProps = async ({ Component, ctx }: AppContext) => {
   const pageProps = await Component.getInitialProps?.(ctx)

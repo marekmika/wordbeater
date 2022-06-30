@@ -7,11 +7,13 @@ import { logoutUserAction, signUserAction } from '@redux/slices/user'
 import { AppState } from '@redux/store'
 import theme from '@styles/theme'
 import Avatar from '@components/elements/Avatar/Avatar'
+import { desktop } from '@components/shared/utils'
 
 const UserAuthContainer = styled.div`
   position: absolute;
-  top: 100px;
-  left: -90px;
+  top: 80px;
+  left: -200px;
+  background-color: grey;
   border: 2px solid ${theme.colors.grey};
   height: 100px;
   width: 250px;
@@ -20,6 +22,12 @@ const UserAuthContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 3rem 0 3rem 0;
+  z-index: 10;
+
+  ${desktop`
+    left: -90px;
+    background-color: inherit;
+  `}
 `
 
 const UserInfo = styled.div`
@@ -39,15 +47,14 @@ const Auth: React.FC = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.user)
   const avatarRef = useRef<HTMLDivElement>(null)
   const authContainerRef = useRef<HTMLDivElement>(null)
-  const [isMouseOnAuthContainer, setIsMouseOnAuthContainer] = useState(
-    !!user?.email
-  )
+  const [isUserAuthContainerVisible, setIsUserAuthContainerVisible] =
+    useState(false)
 
   const authentication = useCallback(() => {
     try {
       dispatch(signUserAction())
     } catch (error) {
-      console.log({ error })
+      console.error({ error })
     }
   }, [dispatch, signUserAction])
 
@@ -55,17 +62,13 @@ const Auth: React.FC = (): JSX.Element => {
     try {
       dispatch(logoutUserAction())
     } catch (error) {
-      console.log({ error })
+      console.error({ error })
     }
   }, [dispatch, logoutUserAction])
 
   const toggleUserMenu = useCallback(() => {
-    console.log(
-      '🚀 ~ toggleUserMenu ~ isMouseOnAuthContainer',
-      isMouseOnAuthContainer
-    )
-    setIsMouseOnAuthContainer(!isMouseOnAuthContainer)
-  }, [setIsMouseOnAuthContainer, isMouseOnAuthContainer])
+    setIsUserAuthContainerVisible(!isUserAuthContainerVisible)
+  }, [setIsUserAuthContainerVisible, isUserAuthContainerVisible])
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -74,10 +77,10 @@ const Auth: React.FC = (): JSX.Element => {
         authContainerRef.current !== event.target &&
         !authContainerRef.current?.contains(event.target as Node)
       ) {
-        setIsMouseOnAuthContainer(false)
+        setIsUserAuthContainerVisible(false)
       }
     },
-    [setIsMouseOnAuthContainer]
+    [setIsUserAuthContainerVisible]
   )
 
   useEffect(() => {
@@ -97,7 +100,7 @@ const Auth: React.FC = (): JSX.Element => {
             src={user?.photoUrl}
             onClick={toggleUserMenu}
           />
-          {isMouseOnAuthContainer && (
+          {isUserAuthContainerVisible && (
             <UserAuthContainer>
               <UserInfo>
                 {user?.email}

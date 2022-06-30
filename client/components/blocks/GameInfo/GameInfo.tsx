@@ -58,7 +58,6 @@ const GameInfo: React.FC = (): JSX.Element => {
 
   // TODO: Better handling of decreasing time??
   useEffect(() => {
-    console.log('🚀 ~ useEffect ~ time', time)
     if (time !== 0 || !intervalId) {
       return
     }
