@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -21,43 +21,47 @@ const GameInputWrapper = styled.div`
 
 const GameInput: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
-
   const { currentWord, score } = useSelector((state: AppState) => state.game)
   const isGameInProgress = useSelector(
     (state: AppState) => state.game.isUserPlaying
   )
   const user = useSelector((state: AppState) => state.user)
-
   const [inputWord, setInputWord] = useState<string>()
 
-  const clearInput = () => {
+  const clearInput = useCallback(() => {
     setInputWord('')
-  }
+  }, [])
 
-  const handleChange = async (value: string) => {
-    setInputWord(value)
+  const handleChange = useCallback(
+    async (value: string) => {
+      setInputWord(value)
+      const isValueSameCurrentWord = currentWord === value
 
-    const isValueSameCurrentWord = currentWord === value
+      if (!isValueSameCurrentWord) {
+        return
+      }
 
-    if (!isValueSameCurrentWord) {
-      return
-    }
+      await updateUserScore(user, score)
+      clearInput()
+      dispatch(setCurrentWord())
 
-    await updateUserScore(user, score)
+      if (!isGameInProgress) {
+        dispatch(setIsUserPlaying(true))
 
-    clearInput()
+        return
+      }
 
-    dispatch(setCurrentWord())
-
-    if (!isGameInProgress) {
-      dispatch(setIsUserPlaying(true))
-
-      return
-    }
-
-    dispatch(increaseScore())
-    dispatch(resetTime())
-  }
+      dispatch(increaseScore())
+      dispatch(resetTime())
+    },
+    [
+      setInputWord,
+      updateUserScore,
+      clearInput,
+      setCurrentWord,
+      setIsUserPlaying,
+    ]
+  )
 
   return (
     <GameInputWrapper>

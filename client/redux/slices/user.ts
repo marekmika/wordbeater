@@ -1,3 +1,4 @@
+import { toastOptions } from '@components/shared/utils'
 import { AppState } from '@redux/store'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
@@ -7,6 +8,7 @@ import {
   signInWithPopup,
   updateUserScore,
 } from '@services/firebaseService'
+import { toast } from 'react-toastify'
 
 export interface UserState {
   uid?: string | null
@@ -36,18 +38,23 @@ export const logoutUserAction = createAsyncThunk(
   'logoutUserAction',
   async () => {
     try {
-      await logoutUser()
+      await logoutUser(() =>
+        toast.success('User has been logout!', toastOptions)
+      )
     } catch (error) {
       console.error({ error })
     }
   }
 )
 
-export const signUserAction = createAsyncThunk('signUserAction', async () => {
+export const signUserAction = createAsyncThunk('signUserAction', () => {
   try {
-    return signInWithPopup()
+    return signInWithPopup(() =>
+      toast.success('User has been logged!', toastOptions)
+    )
   } catch (error) {
     console.error({ error })
+    return null
   }
 })
 
@@ -57,7 +64,12 @@ export const updateUserScoreAction = createAsyncThunk(
     try {
       const state = getState() as AppState
 
-      return updateUserScore(state.user, state.game.score)
+      return updateUserScore(state.user, state.game.score, () =>
+        toast.success(
+          `You have reached new personal record: ${state.game.score} points!`,
+          toastOptions
+        )
+      )
     } catch (error) {
       console.error({ error })
     }
@@ -73,12 +85,6 @@ export const userSlice = createSlice({
 
       return state
     },
-    // setUserBestScore: (state, action: PayloadAction<number>) => {
-    //   state.bestScores = action.payload
-    // },
-    // resetUser: (state) => {
-    //   state = initialState
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserDataAction.fulfilled, (state, action) => {

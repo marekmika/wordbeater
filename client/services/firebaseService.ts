@@ -39,7 +39,6 @@ export const fetchUserData = async (): Promise<any | null> =>
   new Promise((resolve, reject) => {
     return initializedFirebase.auth().onAuthStateChanged(
       async (user) => {
-        console.log('🚀 ~ fetchUserData', user)
         if (!user) {
           return resolve(null)
         }
@@ -67,27 +66,25 @@ export const fetchUserData = async (): Promise<any | null> =>
     )
   })
 
-export const signInWithPopup = async () => {
+export const signInWithPopup = async (onSuccessCallback?: () => void) => {
   const provider = new firebase.auth.GoogleAuthProvider()
+  const loggedUser: UserState = await fetchUserData()
 
-  let loggedUser: UserState
+  if (!loggedUser?.uid) {
+    await initializedFirebase.auth().signInWithPopup(provider)
+    onSuccessCallback?.()
 
-  try {
-    loggedUser = await fetchUserData()
-
-    if (!loggedUser?.uid) {
-      await initializedFirebase.auth().signInWithPopup(provider)
-
-      return fetchUserData()
-    }
-
-    return loggedUser
-  } catch (error) {
-    console.log({ error })
+    return fetchUserData()
   }
+
+  return loggedUser
 }
 
-export const updateUserScore = async (user: UserState, score: number) => {
+export const updateUserScore = async (
+  user: UserState,
+  score: number,
+  onSuccessCallback?: () => void
+) => {
   if (!user || !user.bestScores || !user.uid || !score) {
     return
   }
@@ -96,15 +93,13 @@ export const updateUserScore = async (user: UserState, score: number) => {
     return
   }
 
-  try {
-    const result = scoresRef
-      .doc(user.uid)
-      .update({ bestScores: { beginner: score } })
-    console.log('🚀 ~ updateUserScore ~ result', result)
-    return result
-  } catch (error) {
-    console.log({ error })
-  }
+  const result = scoresRef
+    .doc(user.uid)
+    .update({ bestScores: { beginner: score } })
+
+  onSuccessCallback?.()
+
+  return result
 }
 
 export const fetchBestBeginnerGamers = async () => {
@@ -120,6 +115,7 @@ export const fetchBestBeginnerGamers = async () => {
   )
 }
 
-export const logoutUser = async () => {
-  return initializedFirebase.auth().signOut()
+export const logoutUser = async (onSuccessCallback?: () => void) => {
+  await initializedFirebase.auth().signOut()
+  onSuccessCallback?.()
 }

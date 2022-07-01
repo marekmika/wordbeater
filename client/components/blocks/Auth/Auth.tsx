@@ -7,7 +7,8 @@ import { logoutUserAction, signUserAction } from '@redux/slices/user'
 import { AppState } from '@redux/store'
 import theme from '@styles/theme'
 import Avatar from '@components/elements/Avatar/Avatar'
-import { desktop } from '@components/shared/utils'
+import { desktop, toastOptions } from '@components/shared/utils'
+import { toast } from 'react-toastify'
 
 const UserAuthContainer = styled.div`
   position: absolute;
@@ -55,6 +56,7 @@ const Auth: React.FC = (): JSX.Element => {
       dispatch(signUserAction())
     } catch (error) {
       console.error({ error })
+      toast.error('User was not logged!', toastOptions)
     }
   }, [dispatch, signUserAction])
 

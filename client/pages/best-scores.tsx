@@ -6,7 +6,11 @@ import Layout from '@components/Layout/Layout'
 
 import { fetchBestBeginnerGamers, UserData } from '@services/firebaseService'
 import { AppProps } from 'next/app'
-import { GetServerSideProps } from 'next'
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const BestScoresPage: React.FC<
   AppProps & { bestBeginnerGamers: UserData[] }
@@ -24,15 +28,10 @@ const BestScoresPage: React.FC<
   )
 }
 
-export async function getServerSideProps(context: GetServerSideProps) {
+export async function getStaticProps() {
   const bestBeginnerGamers = await fetchBestBeginnerGamers()
 
   return { props: { bestBeginnerGamers } }
 }
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 export default BestScoresPage

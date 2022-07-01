@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { AppContext, AppProps } from 'next/app'
 import { useDispatch } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { wrapper } from '@redux/store'
 import cookies from 'next-cookies'
 import cookie from 'js-cookie'
@@ -12,9 +12,23 @@ import { initializeFirebase } from '@services/firebaseService'
 import { GlobalStyle } from '@styles/global'
 import theme from '@styles/theme'
 import { setUser, UserState } from '@redux/slices/user'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const IS_SERVER = typeof window === 'undefined'
 const FIREBASE_TOKEN_NAME = 'firebaseToken'
+
+const StyledToastContainer = styled(ToastContainer)`
+  &&&.Toastify__toast-container {
+  }
+  .Toastify__toast {
+    background-color: ${theme.colors.white};
+  }
+  .Toastify__toast-body {
+  }
+  .Toastify__progress-bar {
+  }
+`
 
 const App = (props: AppProps & { user: UserState }) => {
   const dispatch = useDispatch()
@@ -40,21 +54,25 @@ const App = (props: AppProps & { user: UserState }) => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Component {...pageProps} />
+      <StyledToastContainer
+        position="top-right"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggable={false}
+        closeOnClick
+        pauseOnHover
+      />
     </ThemeProvider>
   )
 }
 
 // TODOS:
 // Rewrite to atomic design
-// Solve the issue with first load app -> user is not logged
-// Add https://www.npmjs.com/package/react-toastify for information what happening
-// next-dev.js?3515:25 Warning: Text content did not match. Server: "statue" Client: "river"
 
 App.getInitialProps = async ({ Component, ctx }: AppContext) => {
   const pageProps = await Component.getInitialProps?.(ctx)
   const result = await getCurrentUserData(ctx)
-  console.log('Check when app is started...')
-  console.log('🚀 ~ App.getInitialProps= ~ result', result)
 
   return { pageProps, user: result }
 }
@@ -85,7 +103,7 @@ const getCurrentUserData = async (ctx: NextPageContext<any>) => {
 
     return userData
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 

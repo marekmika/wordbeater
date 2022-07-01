@@ -1,4 +1,3 @@
-// const admin = require('firebase-admin')
 import { UserState } from '@redux/slices/user'
 import admin from 'firebase-admin'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -23,27 +22,20 @@ const firebaseInstance = !admin.apps.length
 
 const validate = async (token: string) => {
   const decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
-  console.log('🚀 ~ validate ~ decodedToken', decodedToken)
-
-  let userData = null
 
   await firebaseInstance.auth().getUser(decodedToken.uid)
 
-  await firebaseInstance
+  const doc = await firebaseInstance
     .firestore()
     .collection('gamers')
     .doc(decodedToken.uid)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        userData = { uid: decodedToken.uid, ...doc.data() }
-      }
-    })
-    .catch((error) => {
-      console.log('Error getting document:', error)
-    })
 
-  return userData
+  if (!doc.exists) {
+    return null
+  }
+
+  return { uid: decodedToken.uid, ...doc.data() }
 }
 
 export default async (

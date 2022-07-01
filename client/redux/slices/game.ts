@@ -10,7 +10,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
   score: 0,
-  currentWord: getRandomWord(),
+  currentWord: '',
   isUserPlaying: false,
   time: 5,
 }
