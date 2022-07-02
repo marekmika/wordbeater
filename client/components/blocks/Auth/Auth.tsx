@@ -12,8 +12,8 @@ const UserAuthContainer = styled.div`
   position: absolute;
   top: 80px;
   left: -200px;
-  background-color: grey;
   border: 2px solid ${theme.colors.grey};
+  background-color: ${theme.colors.black};
   height: 100px;
   width: 250px;
   display: flex;
@@ -25,7 +25,6 @@ const UserAuthContainer = styled.div`
 
   ${desktop`
     left: -90px;
-    background-color: inherit;
   `}
 `
 

@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const IS_SERVER = typeof window === 'undefined'
 const FIREBASE_TOKEN_NAME = 'firebaseToken'
 
+// TODO: Design toastify
 const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
   }
@@ -66,9 +67,6 @@ const App = (props: AppProps & { user: UserState }) => {
     </ThemeProvider>
   )
 }
-
-// TODOS:
-// Rewrite to atomic design
 
 App.getInitialProps = async ({ Component, ctx }: AppContext) => {
   const pageProps = await Component.getInitialProps?.(ctx)

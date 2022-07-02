@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ScoreTable from '@components/ScoreTable/ScoreTable'
+import ScoreTable from '@components/blocks/ScoreTable/ScoreTable'
 import Layout from 'Layout/Layout'
 
 import { UserData } from '@services/firebaseService'

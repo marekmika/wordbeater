@@ -23,6 +23,7 @@ interface ScoreTableProps {
   }[]
 }
 
+// TODO: Design and atomic design
 const ScoreTable: React.FC<ScoreTableProps> = ({ rows }): JSX.Element => {
   return (
     <StyledTable>
