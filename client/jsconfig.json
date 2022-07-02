@@ -8,6 +8,7 @@
         "@utils/*": ["utils/*"],
         "@styles/*": ["styles/*"],
         "@hooks/*": ["hooks/*"],
+        "@constants/*": ["constants/*"],
       }
     }
   }

@@ -1,14 +1,12 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
 
 import LinkButton from '@components/elements/LinkButton/LinkButton'
-import { logoutUserAction, signUserAction } from '@redux/slices/user'
-import { AppState } from '@redux/store'
+import { UserState } from '@redux/slices/user'
+
 import theme from '@styles/theme'
 import Avatar from '@components/elements/Avatar/Avatar'
-import { desktop, toastOptions } from '@components/shared/utils'
-import { toast } from 'react-toastify'
+import { desktop } from '@components/shared/utils'
 
 const UserAuthContainer = styled.div`
   position: absolute;
@@ -43,30 +41,17 @@ const AuthContainer = styled.div`
   margin: auto 0;
 `
 
-const Auth: React.FC = (): JSX.Element => {
-  const dispatch = useDispatch()
-  const user = useSelector((state: AppState) => state.user)
+type Props = {
+  user: UserState
+  onLogoutClick: () => void
+  onLoginClick: () => void
+}
+
+const Auth = ({ user, onLogoutClick, onLoginClick }: Props): JSX.Element => {
   const avatarRef = useRef<HTMLDivElement>(null)
   const authContainerRef = useRef<HTMLDivElement>(null)
   const [isUserAuthContainerVisible, setIsUserAuthContainerVisible] =
     useState(false)
-
-  const authentication = useCallback(() => {
-    try {
-      dispatch(signUserAction())
-    } catch (error) {
-      console.error({ error })
-      toast.error('User was not logged!', toastOptions)
-    }
-  }, [dispatch, signUserAction])
-
-  const logout = useCallback(() => {
-    try {
-      dispatch(logoutUserAction())
-    } catch (error) {
-      console.error({ error })
-    }
-  }, [dispatch, logoutUserAction])
 
   const toggleUserMenu = useCallback(() => {
     setIsUserAuthContainerVisible(!isUserAuthContainerVisible)
@@ -108,12 +93,12 @@ const Auth: React.FC = (): JSX.Element => {
                 {user?.email}
                 <p> Best score: {user?.bestScores?.beginner}</p>
               </UserInfo>
-              <LinkButton onClickAction={logout}>Logout</LinkButton>
+              <LinkButton onClickAction={onLogoutClick}>Logout</LinkButton>
             </UserAuthContainer>
           )}
         </div>
       ) : (
-        <LinkButton onClickAction={authentication}>Login</LinkButton>
+        <LinkButton onClickAction={onLoginClick}>Login</LinkButton>
       )}
     </AuthContainer>
   )

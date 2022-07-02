@@ -47,6 +47,9 @@
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@constants/*": [
+        "constants/*"
       ]
     },
     "noEmit": true,

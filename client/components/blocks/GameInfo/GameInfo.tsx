@@ -1,12 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { desktop } from '@components/shared/utils'
-
-import { resetGame, setIsUserPlaying, decreaseTime } from '@redux/slices/game'
-import { AppState } from '@redux/store'
-import { updateUserScoreAction } from '@redux/slices/user'
 
 const GameInfoWrapper = styled.div`
   display: flex;
@@ -36,50 +31,22 @@ const StyledTypography = styled.p`
   margin: 1rem 0;
 `
 
-const GameInfo: React.FC = (): JSX.Element => {
-  const dispatch = useDispatch()
-  const { score, time, isUserPlaying } = useSelector(
-    (state: AppState) => state.game
-  )
-
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
-
-  const onDecreaseTime = useCallback(async () => {
-    dispatch(decreaseTime())
-  }, [])
-
-  useEffect(() => {
-    if (isUserPlaying) {
-      setIntervalId(setInterval(onDecreaseTime, 1000))
-
-      return
-    }
-  }, [isUserPlaying])
-
-  // TODO: Better handling of decreasing time??
-  useEffect(() => {
-    if (time !== 0 || !intervalId) {
-      return
-    }
-
-    clearInterval(intervalId)
-    dispatch(setIsUserPlaying(false))
-    dispatch(updateUserScoreAction())
-    dispatch(resetGame())
-  }, [time])
-
-  return (
-    <GameInfoWrapper>
-      <GameInfoContainer>
-        <StyledTypography>Time</StyledTypography>
-        <StyledTypography>{time}</StyledTypography>
-      </GameInfoContainer>
-      <GameInfoContainer>
-        <StyledTypography>Score</StyledTypography>
-        <StyledTypography>{score}</StyledTypography>
-      </GameInfoContainer>
-    </GameInfoWrapper>
-  )
+type Props = {
+  time: number
+  score: number
 }
+
+const GameInfo = ({ time, score }: Props): JSX.Element => (
+  <GameInfoWrapper>
+    <GameInfoContainer>
+      <StyledTypography>Time</StyledTypography>
+      <StyledTypography>{time}</StyledTypography>
+    </GameInfoContainer>
+    <GameInfoContainer>
+      <StyledTypography>Score</StyledTypography>
+      <StyledTypography>{score}</StyledTypography>
+    </GameInfoContainer>
+  </GameInfoWrapper>
+)
 
 export default GameInfo

@@ -1,3 +1,4 @@
+import { ToastOptions } from 'react-toastify'
 import { css } from 'styled-components'
 
 const mediaQuery = (name: string) => (styles: TemplateStringsArray) => {

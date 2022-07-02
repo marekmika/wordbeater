@@ -31,9 +31,8 @@ export const gameSlice = createSlice({
     resetTime: (state) => {
       state.time = initialState.time
     },
-    resetGame: (state) => {
-      state = initialState
-      return state
+    resetGame: () => {
+      return { ...initialState, currentWord: getRandomWord() }
     },
     decreaseTime: (state) => {
       state.time -= 1

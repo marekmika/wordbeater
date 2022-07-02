@@ -1,4 +1,4 @@
-import { toastOptions } from '@components/shared/utils'
+import { toast } from 'react-toastify'
 import { AppState } from '@redux/store'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
@@ -8,8 +8,8 @@ import {
   signInWithPopup,
   updateUserScore,
 } from '@services/firebaseService'
-import { toast } from 'react-toastify'
 
+import { toastOptions } from '@constants/toast'
 export interface UserState {
   uid?: string | null
   email: string | null

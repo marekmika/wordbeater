@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import getConfig from 'next/config'
 
 import theme from '@styles/theme'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppState } from '@redux/store'
-import { setCurrentWord } from '@redux/slices/game'
 
 const { publicRuntimeConfig } = getConfig()
 const { NODE_ENV } = publicRuntimeConfig
@@ -34,19 +31,14 @@ const WordTypography = styled.span<{ isDevelopment?: boolean }>`
   `}
 `
 
-const GameWord: React.FC = (): JSX.Element | null => {
-  const dispatch = useDispatch()
-  const currentWord = useSelector((state: AppState) => state.game.currentWord)
+type Props = {
+  word: string
+}
 
-  useEffect(() => {
-    dispatch(setCurrentWord())
-  }, [])
-
+const GameWord = ({ word }: Props): JSX.Element => {
   return (
     <GameWordWrapper>
-      <WordTypography isDevelopment={isDevelopment}>
-        {currentWord}
-      </WordTypography>
+      <WordTypography isDevelopment={isDevelopment}>{word}</WordTypography>
     </GameWordWrapper>
   )
 }

@@ -7,6 +7,7 @@ import Auth from '@components/blocks/Auth/Auth'
 import LinkButton from '@components/elements/LinkButton/LinkButton'
 import { desktop } from '@components/shared/utils'
 import Logo from '@components/elements/Logo/Logo'
+import { UserState } from '@redux/slices/user'
 
 const HeaderWrapper = styled.div`
   color: ${theme.colors.white};
@@ -35,9 +36,15 @@ const NavigationContainer = styled.div`
   gap: 1rem;
 `
 
-const Header: React.FC = (): JSX.Element => {
-  const router = useRouter()
+type Props = {
+  user: UserState
+  onLogoutClick: () => void
+  onLoginClick: () => void
+}
 
+const Header = ({ user, onLogoutClick, onLoginClick }: Props): JSX.Element => {
+  // TODO: Move to props?
+  const router = useRouter()
   const redirectToBestScores = () => {
     return router.push('/best-scores')
   }
@@ -50,7 +57,11 @@ const Header: React.FC = (): JSX.Element => {
           <LinkButton onClickAction={redirectToBestScores}>
             Best scores
           </LinkButton>
-          <Auth />
+          <Auth
+            user={user}
+            onLogoutClick={onLogoutClick}
+            onLoginClick={onLoginClick}
+          />
         </NavigationContainer>
       </NavWrapper>
     </HeaderWrapper>
