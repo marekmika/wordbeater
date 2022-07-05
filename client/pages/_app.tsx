@@ -77,12 +77,12 @@ App.getInitialProps = async ({ Component, ctx }: AppContext) => {
 
 const getCurrentUserData = async (ctx: NextPageContext<any>) => {
   if (!IS_SERVER) {
-    return
+    return null
   }
 
   const { firebaseToken } = cookies(ctx)
   if (!firebaseToken) {
-    return
+    return null
   }
 
   const isDev = process.env.NODE_ENV === 'development'
@@ -102,6 +102,7 @@ const getCurrentUserData = async (ctx: NextPageContext<any>) => {
     return userData
   } catch (e) {
     console.error(e)
+    return null
   }
 }
 
