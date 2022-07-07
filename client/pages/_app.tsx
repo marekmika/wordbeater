@@ -85,17 +85,18 @@ const getCurrentUserData = async (ctx: NextPageContext<any>) => {
     return null
   }
 
-  const isDev = process.env.NODE_ENV === 'development'
-  const baseUrl = isDev ? 'http://localhost:3000' : 'NOT_EXIST_YET'
   try {
     const headers = {
       'Context-Type': 'application/json',
       Authorization: JSON.stringify({ token: firebaseToken }),
     }
 
-    const userData: UserState = await fetch(`${baseUrl}/api/validate`, {
-      headers,
-    }).then((res) => {
+    const userData: UserState = await fetch(
+      `${process.env.BASE_PATH}/api/validate`,
+      {
+        headers,
+      }
+    ).then((res) => {
       return res.json()
     })
 
