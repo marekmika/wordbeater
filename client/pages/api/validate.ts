@@ -22,10 +22,7 @@ const firebaseInstance = !admin.apps.length
 
 const validate = async (token: string) => {
   const decodedToken = await firebaseInstance.auth().verifyIdToken(token, true)
-  console.log('🚀 ~ validate ~ decodedToken', decodedToken)
-
   await firebaseInstance.auth().getUser(decodedToken.uid)
-  console.log('After getUser')
   const doc = await firebaseInstance
     .firestore()
     .collection('gamers')
@@ -35,7 +32,6 @@ const validate = async (token: string) => {
   if (!doc.exists) {
     return null
   }
-  console.log('🚀 ~ validate ~ doc', doc)
 
   return { uid: decodedToken.uid, ...doc.data() }
 }
@@ -51,7 +47,6 @@ export default async (
 
     const authorization = JSON.parse(req.headers.authorization)
     const { token } = authorization
-    console.log('🚀 ~ token', token)
 
     if (!token) {
       return res.status(403).send({

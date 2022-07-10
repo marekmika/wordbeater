@@ -97,7 +97,6 @@ const getCurrentUserData = async (ctx: NextPageContext<any>) => {
         headers,
       }
     ).then((res) => {
-      console.log('🚀 ~ ).then ~ res', res)
       return res.json()
     })
 
