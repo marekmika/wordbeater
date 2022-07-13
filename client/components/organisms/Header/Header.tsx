@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
@@ -43,11 +43,10 @@ type Props = {
 }
 
 const Header = ({ user, onLogoutClick, onLoginClick }: Props): JSX.Element => {
-  // TODO: Move to props?
   const router = useRouter()
-  const redirectToBestScores = () => {
+  const redirectToBestScores = useCallback(() => {
     return router.push('/best-scores')
-  }
+  }, [router])
 
   return (
     <HeaderWrapper>

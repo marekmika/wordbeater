@@ -17,14 +17,13 @@ const GameWordWrapper = styled.div`
   margin-bottom: 4rem;
 `
 
-const WordTypography = styled.span<{ isDevelopment?: boolean }>`
+const WordTypography = styled.span<{ isDevelopment: boolean }>`
   font-weight: bold;
   font-size: clamp(2rem, 5vw, 2.5rem);
 
-  ${(isDevelopment) =>
+  ${({ isDevelopment }) =>
     !isDevelopment &&
-    `
-    -webkit-user-select: none;  
+    `-webkit-user-select: none;  
     -moz-user-select: none;     
     -ms-user-select: none;      
     user-select: none;
@@ -35,12 +34,10 @@ type Props = {
   word: string
 }
 
-const GameWord = ({ word }: Props): JSX.Element => {
-  return (
-    <GameWordWrapper>
-      <WordTypography isDevelopment={isDevelopment}>{word}</WordTypography>
-    </GameWordWrapper>
-  )
-}
+const GameWord = ({ word }: Props): JSX.Element => (
+  <GameWordWrapper>
+    <WordTypography isDevelopment={isDevelopment}>{word}</WordTypography>
+  </GameWordWrapper>
+)
 
 export default GameWord

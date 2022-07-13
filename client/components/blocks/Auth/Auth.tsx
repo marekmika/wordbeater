@@ -10,12 +10,12 @@ import { desktop } from '@components/shared/utils'
 
 const UserAuthContainer = styled.div`
   position: absolute;
-  top: 80px;
-  left: -200px;
+  top: 5rem;
+  left: -14rem;
   border: 2px solid ${theme.colors.grey};
   background-color: ${theme.colors.black};
-  height: 100px;
-  width: 250px;
+  height: 6rem;
+  width: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@ const UserAuthContainer = styled.div`
   z-index: 10;
 
   ${desktop`
-    left: -90px;
+    left: -6rem;
   `}
 `
 

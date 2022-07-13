@@ -103,7 +103,7 @@ export const updateUserScore = async (
 }
 
 export const fetchBestBeginnerGamers = async () => {
-  const docs = await scoresRef.orderBy('email', 'desc').limit(3).get()
+  const docs = await scoresRef.orderBy('email', 'desc').limit(10).get()
   const betBeginnerGamers: UserData[] = []
 
   docs.forEach((doc) => {

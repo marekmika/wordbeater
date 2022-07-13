@@ -5,7 +5,7 @@ const StyledTable = styled.table`
   width: clamp(20rem, 50%, 60rem);
   font-size: clamp(15pt, 5vw, 20pt);
   border-collapse: collapse;
-  padding: 15px;
+  padding: 1rem;
 `
 
 const StyledTableRow = styled.tr`
@@ -14,7 +14,7 @@ const StyledTableRow = styled.tr`
 `
 
 const StyledTableData = styled.td`
-  padding: 15px;
+  padding: 1rem;
 `
 interface ScoreTableProps {
   rows: {
